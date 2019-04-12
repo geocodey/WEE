@@ -5,7 +5,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
+
+import com.example.wmseasyexpert.Models.Example;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -19,6 +21,13 @@ public class HomeActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(v-> Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Example e1 = new Example("a",12);
+        Log.d("HomeActivity", String.valueOf(e1));
     }
 
 }
