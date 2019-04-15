@@ -31,3 +31,35 @@ Also create the file .idea/compiler.xml
     </component>
 </project>
 ```
+
+# Butter Knife
+
+Field and method binding for Android views which uses annotation processing to generate boilerplate
+code for you.
+
+ * Eliminate `findViewById` calls by using `@BindView` on fields.
+ * Group multiple views in a list or array. Operate on all of them at once with actions,
+   setters, or properties.
+ * Eliminate anonymous inner-classes for listeners by annotating methods with `@OnClick` and others.
+ * Eliminate resource lookups by using resource annotations on fields
+```java
+class ExampleActivity extends Activity {
+  @BindView(R.id.user) EditText username;
+
+  @BindString(R.string.login_error) String loginErrorMessage;
+
+  @OnClick(R.id.submit) void submit() {
+    // TODO call server...
+  }
+
+  @Override public void onCreate(Bundle savedInstanceState) {
+    ButterKnife.bind(this);
+    // TODO Use fields...
+  }
+}
+```
+
+# Migrated to AndroidX
+AndroidX is the open-source project that the Android team uses to develop, test, package, version and release libraries within Jetpack.
+
+[AndroidX Overview](https://developer.android.com/jetpack/androidx)
