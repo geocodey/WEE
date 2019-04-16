@@ -1,6 +1,6 @@
 package com.example.wmseasyexpert.Models.ScreenData;
 
-import java.util.Vector;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,5 +8,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OptionsScreenData extends BaseScreenData {
-    private Vector<Option> options;
+    private List<Option> options;
 }
