@@ -1,4 +1,4 @@
-package com.example.wmseasyexpert.Models.Screen;
+package com.example.wmseasyexpert.Models.ScreenData;
 
 import lombok.Getter;
 import lombok.Setter;

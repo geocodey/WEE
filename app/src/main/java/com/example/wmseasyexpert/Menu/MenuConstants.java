@@ -1,4 +1,4 @@
-package com.example.wmseasyexpert.Models.Menu;
+package com.example.wmseasyexpert.Menu;
 
 @SuppressWarnings("unused")
 public interface MenuConstants {

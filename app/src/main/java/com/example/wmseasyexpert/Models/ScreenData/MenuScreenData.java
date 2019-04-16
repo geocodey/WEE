@@ -1,6 +1,6 @@
-package com.example.wmseasyexpert.Models.Screen;
+package com.example.wmseasyexpert.Models.ScreenData;
 
-import com.example.wmseasyexpert.Models.Menu.MenuItem;
+import com.example.wmseasyexpert.Menu.MenuItem;
 
 import lombok.Getter;
 import lombok.Setter;

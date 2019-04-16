@@ -1,4 +1,4 @@
-package com.example.wmseasyexpert.Models.Menu;
+package com.example.wmseasyexpert.Menu;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
