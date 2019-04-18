@@ -1,5 +1,7 @@
 package com.example.wmseasyexpert.Menu;
 
+import androidx.annotation.NonNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +28,7 @@ public abstract class MenuItem implements MenuConstants {
     public abstract boolean isLeaf();
 
     @Override
+    @NonNull
     public String toString() {
         return this.desc;
     }

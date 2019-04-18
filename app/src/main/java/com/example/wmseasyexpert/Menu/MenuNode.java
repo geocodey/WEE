@@ -1,5 +1,7 @@
 package com.example.wmseasyexpert.Menu;
 
+import androidx.annotation.NonNull;
+
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -69,6 +71,7 @@ public class MenuNode extends MenuItem {
         return lines;
     }
 
+    @NonNull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

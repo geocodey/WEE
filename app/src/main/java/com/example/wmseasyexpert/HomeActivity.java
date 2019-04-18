@@ -40,6 +40,9 @@ public class HomeActivity extends AppCompatActivity {
         Example e1 = new Example("a",12);
         Log.d("HomeActivity", String.valueOf(e1));
         Log.d(TAG, XMLParser.optionsXML);
+
+        XMLParser.parseTestXml();
+        XMLParser.parse();
     }
 
 }

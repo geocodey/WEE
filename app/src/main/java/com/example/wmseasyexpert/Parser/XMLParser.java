@@ -1,7 +1,21 @@
 package com.example.wmseasyexpert.Parser;
 
+import android.util.Log;
+import android.util.Xml;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Objects;
+
 public class XMLParser {
 
+    private static final String TAG = XMLParser.class.getName();
+
+
+    private static final String ns = null;
     public static final String optionsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<screen id=\"1\" height=\"8\" width	=\"20\" type=\"options\" keepInstance=\"true\">\n" +
             "	<title>OPTIONS</title>\n" +
@@ -39,5 +53,56 @@ public class XMLParser {
             "		<footer>Press enter !</footer>\" +\n" +
             "	</help>\n" +
             "</screen>\n";
-    
+    private static final String SCREEN_TAG = "screen";
+
+
+    public static void parse() {
+        StringReader xmlReader = new StringReader(optionsXML);
+        try {
+            XmlPullParser parser = Xml.newPullParser();
+            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+            parser.setInput(xmlReader);
+            parser.nextTag();
+            String type = getScreenType(parser);
+            Log.e(TAG,type);
+
+        } catch (Exception e){
+            Log.d(TAG, "Error when parsing.");
+        }
+        }
+
+    private static String getScreenType(XmlPullParser parser) throws IOException, XmlPullParserException {
+        parser.require(XmlPullParser.START_TAG, ns, "screen");
+        if(Objects.equals(parser.getName(), SCREEN_TAG)){
+            return parser.getAttributeValue(ns,"type");
+        }
+        return "";
+    }
+
+    public static void parseTestXml() {
+        StringReader xmlReader = new StringReader(optionsXML);
+        XmlPullParser parser = Xml.newPullParser();
+        try {
+            parser.setInput(xmlReader);
+            int eventType = parser.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                if(eventType == XmlPullParser.START_DOCUMENT) {
+                    System.out.println("Start document");
+                } else if(eventType == XmlPullParser.START_TAG) {
+                    System.out.println("Start tag "+parser.getName());
+                } else if(eventType == XmlPullParser.END_TAG) {
+                    System.out.println("End tag "+parser.getName());
+                } else if(eventType == XmlPullParser.TEXT) {
+                    System.out.println("Text "+parser.getText());
+                }
+                eventType = parser.next();
+            }
+            System.out.println("End document");
+
+        } catch (XmlPullParserException e) {
+            Log.d(TAG,"Xml file could not be parsed.");
+        } catch (IOException e) {
+            Log.d(TAG,"Interface");
+        }
+    }
 }
