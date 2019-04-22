@@ -22,9 +22,7 @@ import java.util.Objects;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import lombok.extern.flogger.Flogger;
 
-@Flogger
 public class XMLParser {
     private static final String TAG = XMLParser.class.getName();
     private static final String ns = null;
