@@ -118,9 +118,21 @@ public class XMLParser {
         return type;
     }
 
+    private static String getTitle(Document doc){
+        if(doc == null){
+            return "";
+        }
+        NodeList entries = doc.getElementsByTagName("title");
+        Node node = entries.item(0);
+        String title = node.getTextContent();
+        Log.d(TAG, "Title : " + title);
+        return title;
+    }
+
     private static void parseOptionsScreen(Document doc){
         OptionsScreenData optionsScreenData = new OptionsScreenData();
         optionsScreenData.setOptions(getOptionsList(doc));
+        optionsScreenData.setTitle(getTitle(doc));
         Log.d(TAG, String.valueOf(optionsScreenData));
     }
 
