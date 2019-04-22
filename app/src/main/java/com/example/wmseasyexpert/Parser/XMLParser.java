@@ -2,6 +2,10 @@ package com.example.wmseasyexpert.Parser;
 
 import android.util.Log;
 
+import androidx.appcompat.app.ActionBar;
+
+import com.example.wmseasyexpert.Models.ScreenData.Option;
+import com.example.wmseasyexpert.Models.ScreenData.OptionsScreenData;
 import com.example.wmseasyexpert.Screen.ScreenType;
 
 import org.w3c.dom.Attr;
@@ -15,6 +19,8 @@ import org.xml.sax.SAXException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,6 +29,8 @@ import javax.xml.parsers.ParserConfigurationException;
 public class XMLParser {
     private static final String TAG = XMLParser.class.getName();
     private static final String SCREEN_TAG = "screen";
+    private static final String OPTION_TAG = "option";
+
     public static final String optionsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<screen id=\"1\" height=\"8\" width	=\"20\" type=\"options\" keepInstance=\"true\">\n" +
             "	<title>OPTIONS</title>\n" +
@@ -111,7 +119,26 @@ public class XMLParser {
     }
 
     private static void parseOptionsScreen(Document doc){
-        Log.d(TAG,"parseOptionsScreen");
+        OptionsScreenData optionsScreenData = new OptionsScreenData();
+        optionsScreenData.setOptions(getOptionsList(doc));
+        Log.d(TAG, String.valueOf(optionsScreenData));
+    }
+
+    private static List<Option> getOptionsList(Document doc) {
+        List<Option> options = new ArrayList<>();
+        NodeList entries = doc.getElementsByTagName(OPTION_TAG);
+        for(int i=0;i<entries.getLength();i++){
+            Option option = new Option();
+            Node e = entries.item(i);
+            NamedNodeMap attributes = e.getAttributes();
+            option.setValue(attributes.getNamedItem("value").getNodeValue());
+            option.setText(attributes.getNamedItem("text").getNodeValue());
+            if(attributes.getNamedItem("selected") != null){
+                option.setSelected(Boolean.parseBoolean(attributes.getNamedItem("selected").getNodeValue()));
+            }
+            options.add(option);
+        }
+        return options;
     }
 
     private static void parseInfoScreen(Document doc){

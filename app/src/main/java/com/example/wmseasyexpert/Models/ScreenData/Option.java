@@ -1,23 +1,15 @@
 package com.example.wmseasyexpert.Models.ScreenData;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @SuppressWarnings("unused")
 @Setter
 @Getter
+@ToString
 public class Option {
-
-    public Option(String value, String text) {
-        this.value = value;
-        this.text = text;
-        this.selected = false;
-    }
-    public Option(String value, String text, boolean selected) {
-        this.value = value;
-        this.text = text;
-        this.selected = selected;
-    }
 
     /**
      * Option value (send to the DB session)
