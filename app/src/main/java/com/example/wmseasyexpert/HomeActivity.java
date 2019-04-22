@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.example.wmseasyexpert.Models.Example;
 import com.example.wmseasyexpert.Parser.XMLParser;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +17,6 @@ import butterknife.OnClick;
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = HomeActivity.class.getName();
 
-    @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.toolbar) Toolbar toolbar;
 
     @OnClick(R.id.fab) void fabClickListener(View v) {
@@ -39,7 +37,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onStart();
         Example e1 = new Example("a",12);
         Log.d("HomeActivity", String.valueOf(e1));
-        Log.d(TAG, XMLParser.optionsXML);
 
         XMLParser.parseTestXml();
         XMLParser.parse();

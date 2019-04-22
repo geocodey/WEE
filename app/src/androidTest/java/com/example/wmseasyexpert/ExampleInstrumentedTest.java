@@ -1,6 +1,7 @@
 package com.example.wmseasyexpert;
 
 import android.content.Context;
+import android.util.Log;
 
 
 import org.junit.Test;
@@ -8,6 +9,8 @@ import org.junit.runner.RunWith;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import com.example.wmseasyexpert.Parser.XMLParser;
 
 import static org.junit.Assert.*;
 
@@ -24,5 +27,9 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         assertEquals("com.example.wmseasyexpert", appContext.getPackageName());
+        Log.e("Testt"," ");
+        //XMLParser.parse();
+        //XMLParser.parseTestXml();
+        XMLParser.parseDoc();
     }
 }

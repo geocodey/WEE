@@ -3,18 +3,30 @@ package com.example.wmseasyexpert.Parser;
 import android.util.Log;
 import android.util.Xml;
 
+import com.example.wmseasyexpert.Screen.ScreenType;
+import com.example.wmseasyexpert.Utils.LogUtil;
+
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.util.Objects;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import lombok.extern.flogger.Flogger;
+
+@Flogger
 public class XMLParser {
-
     private static final String TAG = XMLParser.class.getName();
-
-
     private static final String ns = null;
     public static final String optionsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<screen id=\"1\" height=\"8\" width	=\"20\" type=\"options\" keepInstance=\"true\">\n" +
@@ -56,6 +68,49 @@ public class XMLParser {
     private static final String SCREEN_TAG = "screen";
 
 
+    public static void parseDoc(){
+
+        LogUtil lu = LogUtil.getLogger();
+        lu.log("Textt");
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setValidating(false);
+        DocumentBuilder db;
+        try {
+            InputStream xmlStream  = new ByteArrayInputStream(optionsXML.getBytes());
+            db = dbf.newDocumentBuilder();
+            Document doc = db.parse(xmlStream);
+            NodeList entries = doc.getElementsByTagName("option");
+            int num = entries.getLength();
+
+            for (int i=0; i<num; i++) {
+                Element node = (Element) entries.item(i);
+                listAllAttributes(node);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void listAllAttributes(Element element) {
+
+        Log.d(TAG,"List attributes for node: " + element.getNodeName());
+
+        // get a map containing the attributes of this node
+        NamedNodeMap attributes = element.getAttributes();
+
+        // get the number of nodes in this map
+        int numAttrs = attributes.getLength();
+
+        for (int i = 0; i < numAttrs; i++) {
+            Attr attr = (Attr) attributes.item(i);
+
+            String attrName = attr.getNodeName();
+            String attrValue = attr.getNodeValue();
+
+            Log.d(TAG,"Found attribute: " + attrName + " with value: " + attrValue);
+
+        }
+    }
     public static void parse() {
         StringReader xmlReader = new StringReader(optionsXML);
         try {
@@ -64,17 +119,33 @@ public class XMLParser {
             parser.setInput(xmlReader);
             parser.nextTag();
             String type = getScreenType(parser);
-            Log.e(TAG,type);
+            Log.d(TAG,parser.getName() + " type " + type);
+            if (type.equals(ScreenType.OPTIONS)) {
+                readOptions(parser);
+            }
 
-        } catch (Exception e){
-            Log.d(TAG, "Error when parsing.");
+        } catch (Exception e) {
+            Log.e(TAG,"Error when parsing.");
         }
+    }
+
+    private static void readOptions(XmlPullParser parser) throws XmlPullParserException, IOException {
+        while (parser.next() != XmlPullParser.END_DOCUMENT) {
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                continue;
+            }
+            String name = parser.getName();
+            if (name.equals("option")) {
+                Log.d(TAG,parser.getText());
+            }
         }
+
+    }
 
     private static String getScreenType(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, ns, "screen");
-        if(Objects.equals(parser.getName(), SCREEN_TAG)){
-            return parser.getAttributeValue(ns,"type");
+        if (Objects.equals(parser.getName(), SCREEN_TAG)) {
+            return parser.getAttributeValue(ns, "type");
         }
         return "";
     }
@@ -86,23 +157,23 @@ public class XMLParser {
             parser.setInput(xmlReader);
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
-                if(eventType == XmlPullParser.START_DOCUMENT) {
+                if (eventType == XmlPullParser.START_DOCUMENT) {
                     System.out.println("Start document");
-                } else if(eventType == XmlPullParser.START_TAG) {
-                    System.out.println("Start tag "+parser.getName());
-                } else if(eventType == XmlPullParser.END_TAG) {
-                    System.out.println("End tag "+parser.getName());
-                } else if(eventType == XmlPullParser.TEXT) {
-                    System.out.println("Text "+parser.getText());
+                } else if (eventType == XmlPullParser.START_TAG) {
+                    System.out.println("Start tag " + parser.getName());
+                } else if (eventType == XmlPullParser.END_TAG) {
+                    System.out.println("End tag " + parser.getName());
+                } else if (eventType == XmlPullParser.TEXT) {
+                    System.out.println("Text " + parser.getText());
                 }
                 eventType = parser.next();
             }
             System.out.println("End document");
 
         } catch (XmlPullParserException e) {
-            Log.d(TAG,"Xml file could not be parsed.");
+            Log.e(TAG,"Xml file could not be parsed.");
         } catch (IOException e) {
-            Log.d(TAG,"Interface");
+            Log.e(TAG,"Interface");
         }
     }
 }
