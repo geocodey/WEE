@@ -37,9 +37,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onStart();
         Example e1 = new Example("a",12);
         Log.d("HomeActivity", String.valueOf(e1));
-
-        XMLParser.parseTestXml();
-        XMLParser.parse();
     }
 
 }
