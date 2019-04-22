@@ -35,7 +35,7 @@ public class TestXMLs {
             "		<line>Type the number of the</line>\n" +
             "		<line>selected option</line>\n" +
             "		<line>F1 - this screen</line>\n" +
-            "		<footer>Press enter !</footer>\" +\n" +
+            "		<footer>Press enter !</footer>\n" +
             "	</help>\n" +
             "</screen>\n";
     public static final String inputXML =

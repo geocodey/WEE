@@ -2,8 +2,6 @@ package com.example.wmseasyexpert.Parser;
 
 import android.util.Log;
 
-import androidx.appcompat.app.ActionBar;
-
 import com.example.wmseasyexpert.Models.ScreenData.Option;
 import com.example.wmseasyexpert.Models.ScreenData.OptionsScreenData;
 import com.example.wmseasyexpert.Screen.ScreenType;
@@ -30,6 +28,7 @@ public class XMLParser {
     private static final String TAG = XMLParser.class.getName();
     private static final String SCREEN_TAG = "screen";
     private static final String OPTION_TAG = "option";
+    private static final String HELP_TAG   = "help";
 
     public static final String optionsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<screen id=\"1\" height=\"8\" width	=\"20\" type=\"options\" keepInstance=\"true\">\n" +
@@ -65,7 +64,7 @@ public class XMLParser {
             "		<line>Type the number of the</line>\n" +
             "		<line>selected option</line>\n" +
             "		<line>F1 - this screen</line>\n" +
-            "		<footer>Press enter !</footer>\" +\n" +
+            "		<footer>Press enter !</footer>\n" +
             "	</help>\n" +
             "</screen>\n";
 
@@ -129,10 +128,26 @@ public class XMLParser {
         return title;
     }
 
+    private static String getHelpDetails(Document doc){
+        NodeList entries = doc.getElementsByTagName(HELP_TAG);
+        Node node = entries.item(0);
+        String key = node.getAttributes().getNamedItem("key").getNodeValue();
+        StringBuilder sb = new StringBuilder();
+        NodeList lines = node.getChildNodes();
+        for(int i=0;i<lines.getLength();i++){
+            Node e = lines.item(i);
+            sb.append(e.getTextContent());
+        }
+        Log.d(TAG,key);
+        Log.d(TAG, String.valueOf(sb));
+        return sb.toString();
+    }
+
     private static void parseOptionsScreen(Document doc){
         OptionsScreenData optionsScreenData = new OptionsScreenData();
         optionsScreenData.setOptions(getOptionsList(doc));
         optionsScreenData.setTitle(getTitle(doc));
+        getHelpDetails(doc);
         Log.d(TAG, String.valueOf(optionsScreenData));
     }
 
