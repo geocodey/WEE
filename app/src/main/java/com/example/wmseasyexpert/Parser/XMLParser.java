@@ -32,6 +32,7 @@ public class XMLParser {
     private static final String OPTION_TAG = "option";
     private static final String HELP_TAG = "help";
     private static final String FOOTER_TAG = "footer";
+    private static final String INPUT_TAG = "input";
 
     public static void parseDoc(String xml) {
         Document doc = initDocument(xml);
