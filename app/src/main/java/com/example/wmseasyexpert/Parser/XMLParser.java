@@ -22,7 +22,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.FormatFlagsConversionMismatchException;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -31,15 +30,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class XMLParser {
     private static final String TAG = XMLParser.class.getName();
-    private static final String SCREEN_TAG = "screen";
-    private static final String OPTION_TAG = "option";
-    private static final String HELP_TAG = "help";
-    private static final String FOOTER_TAG = "footer";
-    private static final String INPUT_TAG = "input";
-    private static final String KEY_TAG = "key";
-    private static final String ERROR_MESSAGE_TAG = "errorMessage";
-    private static final String LINE_TAG = "line";
-
     public static void parseDoc(String xml) {
         Document doc = initDocument(xml);
         String type = getScreenType(doc);
@@ -82,7 +72,7 @@ public class XMLParser {
         if (doc == null) {
             return "";
         }
-        NodeList entries = doc.getElementsByTagName(SCREEN_TAG);
+        NodeList entries = doc.getElementsByTagName(TAGS.SCREEN_TAG);
         Node node = entries.item(0);
         String type = node.getAttributes().getNamedItem("type").getNodeValue();
         Log.d(TAG, "Type of screen : " + type);
@@ -103,13 +93,13 @@ public class XMLParser {
     private static HelpTag getHelpTag(Document doc) {
         HelpTag helpTag = new HelpTag();
         ArrayList<String> lines = new ArrayList<>();
-        NodeList entries = doc.getElementsByTagName(HELP_TAG);
+        NodeList entries = doc.getElementsByTagName(TAGS.HELP_TAG);
         Node node = entries.item(0);
         helpTag.setHelpKey(node.getAttributes().getNamedItem("key").getNodeValue());
         NodeList nodeChilds = node.getChildNodes();
         for (int i = 0; i < nodeChilds.getLength(); i++) {
             Node e = nodeChilds.item(i);
-            if (e.getNodeName().equals(FOOTER_TAG)) {
+            if (e.getNodeName().equals(TAGS.FOOTER_TAG)) {
                 helpTag.setHelpFooter(e.getTextContent());
             }
             lines.add(e.getTextContent());
@@ -132,7 +122,7 @@ public class XMLParser {
 
     private static ScreenTag getScreenTag(Document doc) {
         ScreenTag screenTag = new ScreenTag();
-        NodeList entries = doc.getElementsByTagName(SCREEN_TAG);
+        NodeList entries = doc.getElementsByTagName(TAGS.SCREEN_TAG);
         Node node = entries.item(0);
         screenTag.setId(Long.parseLong(node.getAttributes().getNamedItem("id").getNodeValue()));
         screenTag.setHeight(Integer.parseInt(node.getAttributes().getNamedItem("height").getNodeValue()));
@@ -146,7 +136,7 @@ public class XMLParser {
 
     private static List<Option> getOptionsList(Document doc) {
         List<Option> options = new ArrayList<>();
-        NodeList entries = doc.getElementsByTagName(OPTION_TAG);
+        NodeList entries = doc.getElementsByTagName(TAGS.OPTION_TAG);
         for (int i = 0; i < entries.getLength(); i++) {
             Option option = new Option();
             Node e = entries.item(i);
@@ -165,15 +155,15 @@ public class XMLParser {
         InputTag inputTag = new InputTag();
         ErrorMessageTag errorMessageTag = new ErrorMessageTag();
         ArrayList<String> keys = new ArrayList<>();
-        NodeList entries = doc.getElementsByTagName(INPUT_TAG);
+        NodeList entries = doc.getElementsByTagName(TAGS.INPUT_TAG);
         Node node = entries.item(0);
         NodeList nodeChilds = node.getChildNodes();
         for (int i = 0; i < nodeChilds.getLength(); i++) {
             Node e = nodeChilds.item(i);
-            if (e.getNodeName().equals(KEY_TAG)) {
+            if (e.getNodeName().equals(TAGS.KEY_TAG)) {
                 keys.add(e.getTextContent());
             }
-            else if (e.getNodeName().equals(ERROR_MESSAGE_TAG)){
+            else if (e.getNodeName().equals(TAGS.ERROR_MESSAGE_TAG)){
                 errorMessageTag = getErrorMessageTag(e);
 
             }
@@ -192,9 +182,9 @@ public class XMLParser {
             Node e = nodeChilds.item(i);
             String nodeName = e.getNodeName();
             String content = e.getTextContent();
-            if (nodeName.equals(LINE_TAG)) {
+            if (nodeName.equals(TAGS.LINE_TAG)) {
                 lines.add(content);
-            }else if (nodeName.equals(FOOTER_TAG)){
+            }else if (nodeName.equals(TAGS.FOOTER_TAG)){
                 footer=content;
             }
         }
@@ -212,7 +202,7 @@ public class XMLParser {
             Node e = sceenNodeChilds.item(i);
             String tag = e.getNodeName();
             String content = e.getTextContent();
-            if (tag.equals(FOOTER_TAG)) {
+            if (tag.equals(TAGS.FOOTER_TAG)) {
                 return content;
             }
         }
