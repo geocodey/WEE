@@ -1,7 +1,5 @@
 package com.example.wmseasyexpert.Models.ScreenData;
 
-import androidx.annotation.CallSuper;
-
 import java.util.List;
 
 import lombok.Getter;

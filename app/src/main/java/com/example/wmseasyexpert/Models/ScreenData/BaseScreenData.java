@@ -12,17 +12,9 @@ import lombok.ToString;
 public class BaseScreenData {
 
     /**
-     * Maximum number of columns.
+     * Attributes from screen tag
      */
-    private int width;
-    /**
-     * Maximum number of rows.
-     */
-    private int height;
-    /**
-     * Screen id (taken from the database)
-     */
-    private long id;
+    private ScreenTag screenTag;
     /**
      * Screen title, displayed on the top.
      */

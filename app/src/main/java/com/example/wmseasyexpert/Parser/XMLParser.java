@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.wmseasyexpert.Models.ScreenData.Option;
 import com.example.wmseasyexpert.Models.ScreenData.OptionsScreenData;
+import com.example.wmseasyexpert.Models.ScreenData.ScreenTag;
 import com.example.wmseasyexpert.Screen.ScreenType;
 
 import org.w3c.dom.Attr;
@@ -145,10 +146,25 @@ public class XMLParser {
 
     private static void parseOptionsScreen(Document doc){
         OptionsScreenData optionsScreenData = new OptionsScreenData();
+        optionsScreenData.setScreenTag(getScreenTag(doc));
         optionsScreenData.setOptions(getOptionsList(doc));
         optionsScreenData.setTitle(getTitle(doc));
         getHelpDetails(doc);
         Log.d(TAG, String.valueOf(optionsScreenData));
+    }
+
+    private static ScreenTag getScreenTag(Document doc) {
+        ScreenTag screenTag = new ScreenTag();
+        NodeList entries = doc.getElementsByTagName(SCREEN_TAG);
+        Node node = entries.item(0);
+        screenTag.setId(Long.parseLong(node.getAttributes().getNamedItem("id").getNodeValue()));
+        screenTag.setHeight(Integer.parseInt(node.getAttributes().getNamedItem("height").getNodeValue()));
+        screenTag.setWidth(Integer.parseInt(node.getAttributes().getNamedItem("width").getNodeValue()));
+        screenTag.setType(node.getAttributes().getNamedItem("type").getNodeValue());
+        screenTag.setKeepInstance(Boolean.parseBoolean(node.getAttributes().getNamedItem("keepInstance").getNodeValue()));
+
+        Log.d(TAG, "Screen tag - " + screenTag);
+        return screenTag;
     }
 
     private static List<Option> getOptionsList(Document doc) {
