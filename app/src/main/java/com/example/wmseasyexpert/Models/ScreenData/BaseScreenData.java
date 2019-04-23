@@ -28,14 +28,6 @@ public class BaseScreenData {
      */
     private List<String> textLines;
     /**
-     * Help lines to be displayed in case F1 is pressed.
-     */
-    private List<String> helpLines;
-    /**
-     * Key used to display the help screen when the users asks.
-     */
-    private String helpKey;
-    /**
      * Message lines that will be displayed in case of invalid
      * input occurs.
      */
@@ -73,9 +65,9 @@ public class BaseScreenData {
      * invalid input message.
      */
     private String invalidInputFooter;
+
     /**
-     * Footer will be displayed on the screen displaying the
-     * help screen message.
+     * help tag
      */
-    private String helpFooter;
+    private HelpTag helpTag;
 }

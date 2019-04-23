@@ -2,6 +2,7 @@ package com.example.wmseasyexpert.Parser;
 
 import android.util.Log;
 
+import com.example.wmseasyexpert.Models.ScreenData.HelpTag;
 import com.example.wmseasyexpert.Models.ScreenData.Option;
 import com.example.wmseasyexpert.Models.ScreenData.OptionsScreenData;
 import com.example.wmseasyexpert.Models.ScreenData.ScreenTag;
@@ -92,19 +93,23 @@ public class XMLParser {
         return title;
     }
 
-    private static String getHelpDetails(Document doc) {
+    private static HelpTag getHelpTag(Document doc) {
+        HelpTag helpTag = new HelpTag();
+        ArrayList<String> lines = new ArrayList<>();
         NodeList entries = doc.getElementsByTagName(HELP_TAG);
         Node node = entries.item(0);
-        String key = node.getAttributes().getNamedItem("key").getNodeValue();
-        StringBuilder sb = new StringBuilder();
-        NodeList lines = node.getChildNodes();
-        for (int i = 0; i < lines.getLength(); i++) {
-            Node e = lines.item(i);
-            sb.append(e.getTextContent());
+        helpTag.setHelpKey(node.getAttributes().getNamedItem("key").getNodeValue());
+        NodeList nodeChilds = node.getChildNodes();
+        for (int i = 0; i < nodeChilds.getLength(); i++) {
+            Node e = nodeChilds.item(i);
+            if(e.getNodeName().equals(FOOTER_TAG)){
+                helpTag.setHelpFooter(e.getTextContent());
+            }
+            lines.add(e.getTextContent());
         }
-        Log.d(TAG, key);
-        Log.d(TAG, String.valueOf(sb));
-        return sb.toString();
+        helpTag.setHelpLines(lines);
+        Log.d(TAG, helpTag.toString());
+        return helpTag;
     }
 
     private static void parseOptionsScreen(Document doc) {
@@ -112,8 +117,8 @@ public class XMLParser {
         optionsScreenData.setScreenTag(getScreenTag(doc));
         optionsScreenData.setOptions(getOptionsList(doc));
         optionsScreenData.setTitle(getTitle(doc));
+        optionsScreenData.setHelpTag(getHelpTag(doc));
         optionsScreenData.setFooter(getFooterTag(doc));
-        getHelpDetails(doc);
         Log.d(TAG, String.valueOf(optionsScreenData));
     }
 
