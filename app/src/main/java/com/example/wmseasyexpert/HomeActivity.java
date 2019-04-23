@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.example.wmseasyexpert.Models.Example;
-import com.example.wmseasyexpert.Parser.XMLParser;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,8 +33,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        Example e1 = new Example("a",12);
-        Log.d("HomeActivity", String.valueOf(e1));
     }
 
 }
