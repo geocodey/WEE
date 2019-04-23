@@ -29,7 +29,8 @@ public class XMLParser {
     private static final String TAG = XMLParser.class.getName();
     private static final String SCREEN_TAG = "screen";
     private static final String OPTION_TAG = "option";
-    private static final String HELP_TAG   = "help";
+    private static final String HELP_TAG = "help";
+    private static final String FOOTER_TAG = "footer";
 
     public static final String optionsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<screen id=\"1\" height=\"8\" width	=\"20\" type=\"options\" keepInstance=\"true\">\n" +
@@ -72,7 +73,7 @@ public class XMLParser {
     public static void parseDoc() {
         Document doc = initDocument(optionsXML);
         String type = getScreenType(doc);
-        switch (type){
+        switch (type) {
             case ScreenType.OPTIONS:
                 parseOptionsScreen(doc);
                 break;
@@ -86,7 +87,7 @@ public class XMLParser {
                 parseMenuScreen(doc);
                 break;
             default:
-                Log.e(TAG,"Screen type not found : " + type);
+                Log.e(TAG, "Screen type not found : " + type);
         }
     }
 
@@ -108,7 +109,7 @@ public class XMLParser {
     }
 
     private static String getScreenType(Document doc) {
-        if(doc == null){
+        if (doc == null) {
             return "";
         }
         NodeList entries = doc.getElementsByTagName(SCREEN_TAG);
@@ -118,8 +119,8 @@ public class XMLParser {
         return type;
     }
 
-    private static String getTitle(Document doc){
-        if(doc == null){
+    private static String getTitle(Document doc) {
+        if (doc == null) {
             return "";
         }
         NodeList entries = doc.getElementsByTagName("title");
@@ -129,26 +130,27 @@ public class XMLParser {
         return title;
     }
 
-    private static String getHelpDetails(Document doc){
+    private static String getHelpDetails(Document doc) {
         NodeList entries = doc.getElementsByTagName(HELP_TAG);
         Node node = entries.item(0);
         String key = node.getAttributes().getNamedItem("key").getNodeValue();
         StringBuilder sb = new StringBuilder();
         NodeList lines = node.getChildNodes();
-        for(int i=0;i<lines.getLength();i++){
+        for (int i = 0; i < lines.getLength(); i++) {
             Node e = lines.item(i);
             sb.append(e.getTextContent());
         }
-        Log.d(TAG,key);
+        Log.d(TAG, key);
         Log.d(TAG, String.valueOf(sb));
         return sb.toString();
     }
 
-    private static void parseOptionsScreen(Document doc){
+    private static void parseOptionsScreen(Document doc) {
         OptionsScreenData optionsScreenData = new OptionsScreenData();
         optionsScreenData.setScreenTag(getScreenTag(doc));
         optionsScreenData.setOptions(getOptionsList(doc));
         optionsScreenData.setTitle(getTitle(doc));
+        optionsScreenData.setFooter(getFooterTag(doc));
         getHelpDetails(doc);
         Log.d(TAG, String.valueOf(optionsScreenData));
     }
@@ -170,13 +172,13 @@ public class XMLParser {
     private static List<Option> getOptionsList(Document doc) {
         List<Option> options = new ArrayList<>();
         NodeList entries = doc.getElementsByTagName(OPTION_TAG);
-        for(int i=0;i<entries.getLength();i++){
+        for (int i = 0; i < entries.getLength(); i++) {
             Option option = new Option();
             Node e = entries.item(i);
             NamedNodeMap attributes = e.getAttributes();
             option.setValue(attributes.getNamedItem("value").getNodeValue());
             option.setText(attributes.getNamedItem("text").getNodeValue());
-            if(attributes.getNamedItem("selected") != null){
+            if (attributes.getNamedItem("selected") != null) {
                 option.setSelected(Boolean.parseBoolean(attributes.getNamedItem("selected").getNodeValue()));
             }
             options.add(option);
@@ -184,16 +186,31 @@ public class XMLParser {
         return options;
     }
 
-    private static void parseInfoScreen(Document doc){
-        Log.d(TAG,"parseInfoScreen");
+    private static String getFooterTag(Document doc) {
+        NodeList docNodes = doc.getChildNodes();
+        Node screenNode = docNodes.item(0);
+        NodeList sceenNodeChilds = screenNode.getChildNodes();
+        for (int i = 0; i < sceenNodeChilds.getLength(); i++) {
+            Node e = sceenNodeChilds.item(i);
+            String tag = e.getNodeName();
+            String content = e.getTextContent();
+            if (tag.equals(FOOTER_TAG)) {
+                return content;
+            }
+        }
+        return null;
     }
 
-    private static void parseInputScreen(Document doc){
-        Log.d(TAG,"parseInputScreen");
+    private static void parseInfoScreen(Document doc) {
+        Log.d(TAG, "parseInfoScreen");
     }
 
-    private static void parseMenuScreen(Document doc){
-        Log.d(TAG,"parseMenuScreen");
+    private static void parseInputScreen(Document doc) {
+        Log.d(TAG, "parseInputScreen");
+    }
+
+    private static void parseMenuScreen(Document doc) {
+        Log.d(TAG, "parseMenuScreen");
     }
 
     private static void listAllAttributes(Element element) {
