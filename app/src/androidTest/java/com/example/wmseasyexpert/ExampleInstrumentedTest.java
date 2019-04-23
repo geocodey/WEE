@@ -28,6 +28,6 @@ public class ExampleInstrumentedTest {
 
         assertEquals("com.example.wmseasyexpert", appContext.getPackageName());
         Log.e("Testt"," ");
-        XMLParser.parseDoc();
+        XMLParser.parseDoc(TestXMLs.optionsXML);
     }
 }
