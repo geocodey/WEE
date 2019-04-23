@@ -2,7 +2,9 @@ package com.example.wmseasyexpert.Parser;
 
 import android.util.Log;
 
+import com.example.wmseasyexpert.Models.ScreenData.ErrorMessageTag;
 import com.example.wmseasyexpert.Models.ScreenData.HelpTag;
+import com.example.wmseasyexpert.Models.ScreenData.InputTag;
 import com.example.wmseasyexpert.Models.ScreenData.Option;
 import com.example.wmseasyexpert.Models.ScreenData.OptionsScreenData;
 import com.example.wmseasyexpert.Models.ScreenData.ScreenTag;
@@ -20,6 +22,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.FormatFlagsConversionMismatchException;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -33,6 +36,9 @@ public class XMLParser {
     private static final String HELP_TAG = "help";
     private static final String FOOTER_TAG = "footer";
     private static final String INPUT_TAG = "input";
+    private static final String KEY_TAG = "key";
+    private static final String ERROR_MESSAGE_TAG = "errorMessage";
+    private static final String LINE_TAG = "line";
 
     public static void parseDoc(String xml) {
         Document doc = initDocument(xml);
@@ -103,7 +109,7 @@ public class XMLParser {
         NodeList nodeChilds = node.getChildNodes();
         for (int i = 0; i < nodeChilds.getLength(); i++) {
             Node e = nodeChilds.item(i);
-            if(e.getNodeName().equals(FOOTER_TAG)){
+            if (e.getNodeName().equals(FOOTER_TAG)) {
                 helpTag.setHelpFooter(e.getTextContent());
             }
             lines.add(e.getTextContent());
@@ -118,6 +124,7 @@ public class XMLParser {
         optionsScreenData.setScreenTag(getScreenTag(doc));
         optionsScreenData.setOptions(getOptionsList(doc));
         optionsScreenData.setTitle(getTitle(doc));
+        optionsScreenData.setInputTag(getInputTag(doc));
         optionsScreenData.setHelpTag(getHelpTag(doc));
         optionsScreenData.setFooter(getFooterTag(doc));
         Log.d(TAG, String.valueOf(optionsScreenData));
@@ -152,6 +159,49 @@ public class XMLParser {
             options.add(option);
         }
         return options;
+    }
+
+    private static InputTag getInputTag(Document doc) {
+        InputTag inputTag = new InputTag();
+        ErrorMessageTag errorMessageTag = new ErrorMessageTag();
+        ArrayList<String> keys = new ArrayList<>();
+        NodeList entries = doc.getElementsByTagName(INPUT_TAG);
+        Node node = entries.item(0);
+        NodeList nodeChilds = node.getChildNodes();
+        for (int i = 0; i < nodeChilds.getLength(); i++) {
+            Node e = nodeChilds.item(i);
+            if (e.getNodeName().equals(KEY_TAG)) {
+                keys.add(e.getTextContent());
+            }
+            else if (e.getNodeName().equals(ERROR_MESSAGE_TAG)){
+                errorMessageTag = getErrorMessageTag(e);
+
+            }
+        }
+        inputTag.setExpectedKeys(keys);
+        inputTag.setErrorMessageTag(errorMessageTag);
+        Log.d(TAG, inputTag.toString());
+        return inputTag;
+    }
+
+    private static ErrorMessageTag getErrorMessageTag(Node node) {
+        List<String> lines = new ArrayList<>();
+        String footer = null;
+        NodeList nodeChilds = node.getChildNodes();
+        for (int i = 0; i < nodeChilds.getLength(); i++) {
+            Node e = nodeChilds.item(i);
+            String nodeName = e.getNodeName();
+            String content = e.getTextContent();
+            if (nodeName.equals(LINE_TAG)) {
+                lines.add(content);
+            }else if (nodeName.equals(FOOTER_TAG)){
+                footer=content;
+            }
+        }
+        ErrorMessageTag errorMessageTag = new ErrorMessageTag();
+        errorMessageTag.setInvalidInputLines(lines);
+        errorMessageTag.setInvalidInputFooter(footer);
+        return errorMessageTag;
     }
 
     private static String getFooterTag(Document doc) {

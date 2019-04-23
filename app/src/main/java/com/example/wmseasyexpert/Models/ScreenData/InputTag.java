@@ -38,14 +38,6 @@ public class InputTag {
      * Contains the list of expected keys that will be accepted as input
      */
     private List<String> expectedKeys;
-    /**
-     * Message lines that will be displayed in case of invalid
-     * input occurs.
-     */
-    private List<String> invalidInputLines;
-    /**
-     * Footer will be displayed on the screen displaying the
-     * invalid input message.
-     */
-    private String invalidInputFooter;
+
+    private ErrorMessageTag errorMessageTag;
 }
