@@ -1,5 +1,6 @@
 package com.example.wmseasyexpert.models.screen;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.Getter;
@@ -9,7 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BaseScreenData {
+public class BaseScreenData implements Serializable {
 
     /**
      * Attributes from screen tag

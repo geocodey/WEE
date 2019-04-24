@@ -2,6 +2,7 @@ package com.example.wmseasyexpert.parser;
 
 import android.util.Log;
 
+import com.example.wmseasyexpert.models.screen.BaseScreenData;
 import com.example.wmseasyexpert.models.screen.ErrorMessageTag;
 import com.example.wmseasyexpert.models.screen.HelpTag;
 import com.example.wmseasyexpert.models.screen.InputTag;
@@ -30,12 +31,13 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class XMLParser {
     private static final String TAG = XMLParser.class.getName();
-    public static void parseDoc(String xml) {
+    public static BaseScreenData parseDoc(String xml) {
         Document doc = initDocument(xml);
+        BaseScreenData screenData = null;
         String type = getScreenType(doc);
         switch (type) {
             case ScreenType.OPTIONS:
-                parseOptionsScreen(doc);
+                screenData = parseOptionsScreen(doc);
                 break;
             case ScreenType.INFO:
                 parseInfoScreen(doc);
@@ -49,6 +51,7 @@ public class XMLParser {
             default:
                 Log.e(TAG, "Screen type not found : " + type);
         }
+        return screenData;
     }
 
     private static Document initDocument(String xmlString) {
@@ -109,7 +112,7 @@ public class XMLParser {
         return helpTag;
     }
 
-    private static void parseOptionsScreen(Document doc) {
+    private static BaseScreenData parseOptionsScreen(Document doc) {
         OptionsScreenData optionsScreenData = new OptionsScreenData();
         optionsScreenData.setScreenTag(getScreenTag(doc));
         optionsScreenData.setOptions(getOptionsList(doc));
@@ -118,6 +121,7 @@ public class XMLParser {
         optionsScreenData.setHelpTag(getHelpTag(doc));
         optionsScreenData.setFooter(getFooterTag(doc));
         Log.d(TAG, String.valueOf(optionsScreenData));
+        return  optionsScreenData;
     }
 
     private static ScreenTag getScreenTag(Document doc) {

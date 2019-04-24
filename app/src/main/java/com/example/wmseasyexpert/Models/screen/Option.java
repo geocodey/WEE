@@ -1,5 +1,7 @@
 package com.example.wmseasyexpert.models.screen;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,7 +10,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class Option {
+public class Option implements Serializable {
 
     /**
      * Option value (send to the DB session)

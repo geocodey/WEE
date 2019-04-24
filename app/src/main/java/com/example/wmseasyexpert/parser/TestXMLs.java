@@ -1,4 +1,4 @@
-package com.example.wmseasyexpert;
+package com.example.wmseasyexpert.parser;
 
 public class TestXMLs {
     public static final String optionsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +

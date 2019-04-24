@@ -1,5 +1,7 @@
 package com.example.wmseasyexpert.models.screen;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ScreenTag {
+public class ScreenTag implements Serializable {
     /**
      * Screen id (taken from the database)
      */

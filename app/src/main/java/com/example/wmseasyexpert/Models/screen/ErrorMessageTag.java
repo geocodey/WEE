@@ -1,5 +1,6 @@
 package com.example.wmseasyexpert.models.screen;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.Getter;
@@ -9,7 +10,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class ErrorMessageTag {
+public class ErrorMessageTag implements Serializable {
     /**
      * Message lines that will be displayed in case of invalid
      * input occurs.

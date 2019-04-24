@@ -1,8 +1,10 @@
 package com.example.wmseasyexpert.mvp.contracts;
 
+import com.example.wmseasyexpert.models.screen.BaseScreenData;
+
 public interface HomeContract {
     interface View {
-        void displayScreen();
+        void displayScreen(BaseScreenData screenData);
 
         void showOnGetScreenError();
     }

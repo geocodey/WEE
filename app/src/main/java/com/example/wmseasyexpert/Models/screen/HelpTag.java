@@ -1,6 +1,7 @@
 package com.example.wmseasyexpert.models.screen;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.Getter;
@@ -10,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class HelpTag {
+public class HelpTag implements Serializable {
 
     /**
      * Key used to display the help screen when the users asks.
