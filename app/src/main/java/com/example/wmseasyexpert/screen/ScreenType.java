@@ -1,4 +1,4 @@
-package com.example.wmseasyexpert.Screen;
+package com.example.wmseasyexpert.screen;
 
 public abstract class ScreenType {
     public static final String OPTIONS = "options";

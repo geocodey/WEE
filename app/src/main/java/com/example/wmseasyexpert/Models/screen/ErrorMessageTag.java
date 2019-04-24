@@ -1,4 +1,4 @@
-package com.example.wmseasyexpert.Models.ScreenData;
+package com.example.wmseasyexpert.models.screen;
 
 import java.util.List;
 

@@ -1,14 +1,14 @@
-package com.example.wmseasyexpert.Parser;
+package com.example.wmseasyexpert.parser;
 
 import android.util.Log;
 
-import com.example.wmseasyexpert.Models.ScreenData.ErrorMessageTag;
-import com.example.wmseasyexpert.Models.ScreenData.HelpTag;
-import com.example.wmseasyexpert.Models.ScreenData.InputTag;
-import com.example.wmseasyexpert.Models.ScreenData.Option;
-import com.example.wmseasyexpert.Models.ScreenData.OptionsScreenData;
-import com.example.wmseasyexpert.Models.ScreenData.ScreenTag;
-import com.example.wmseasyexpert.Screen.ScreenType;
+import com.example.wmseasyexpert.models.screen.ErrorMessageTag;
+import com.example.wmseasyexpert.models.screen.HelpTag;
+import com.example.wmseasyexpert.models.screen.InputTag;
+import com.example.wmseasyexpert.models.screen.Option;
+import com.example.wmseasyexpert.models.screen.OptionsScreenData;
+import com.example.wmseasyexpert.models.screen.ScreenTag;
+import com.example.wmseasyexpert.screen.ScreenType;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -72,7 +72,7 @@ public class XMLParser {
         if (doc == null) {
             return "";
         }
-        NodeList entries = doc.getElementsByTagName(TAGS.SCREEN_TAG);
+        NodeList entries = doc.getElementsByTagName(Tags.SCREEN_TAG);
         Node node = entries.item(0);
         String type = node.getAttributes().getNamedItem("type").getNodeValue();
         Log.d(TAG, "Type of screen : " + type);
@@ -93,13 +93,13 @@ public class XMLParser {
     private static HelpTag getHelpTag(Document doc) {
         HelpTag helpTag = new HelpTag();
         ArrayList<String> lines = new ArrayList<>();
-        NodeList entries = doc.getElementsByTagName(TAGS.HELP_TAG);
+        NodeList entries = doc.getElementsByTagName(Tags.HELP_TAG);
         Node node = entries.item(0);
         helpTag.setHelpKey(node.getAttributes().getNamedItem("key").getNodeValue());
         NodeList nodeChilds = node.getChildNodes();
         for (int i = 0; i < nodeChilds.getLength(); i++) {
             Node e = nodeChilds.item(i);
-            if (e.getNodeName().equals(TAGS.FOOTER_TAG)) {
+            if (e.getNodeName().equals(Tags.FOOTER_TAG)) {
                 helpTag.setHelpFooter(e.getTextContent());
             }
             lines.add(e.getTextContent());
@@ -122,7 +122,7 @@ public class XMLParser {
 
     private static ScreenTag getScreenTag(Document doc) {
         ScreenTag screenTag = new ScreenTag();
-        NodeList entries = doc.getElementsByTagName(TAGS.SCREEN_TAG);
+        NodeList entries = doc.getElementsByTagName(Tags.SCREEN_TAG);
         Node node = entries.item(0);
         screenTag.setId(Long.parseLong(node.getAttributes().getNamedItem("id").getNodeValue()));
         screenTag.setHeight(Integer.parseInt(node.getAttributes().getNamedItem("height").getNodeValue()));
@@ -136,7 +136,7 @@ public class XMLParser {
 
     private static List<Option> getOptionsList(Document doc) {
         List<Option> options = new ArrayList<>();
-        NodeList entries = doc.getElementsByTagName(TAGS.OPTION_TAG);
+        NodeList entries = doc.getElementsByTagName(Tags.OPTION_TAG);
         for (int i = 0; i < entries.getLength(); i++) {
             Option option = new Option();
             Node e = entries.item(i);
@@ -155,15 +155,15 @@ public class XMLParser {
         InputTag inputTag = new InputTag();
         ErrorMessageTag errorMessageTag = new ErrorMessageTag();
         ArrayList<String> keys = new ArrayList<>();
-        NodeList entries = doc.getElementsByTagName(TAGS.INPUT_TAG);
+        NodeList entries = doc.getElementsByTagName(Tags.INPUT_TAG);
         Node node = entries.item(0);
         NodeList nodeChilds = node.getChildNodes();
         for (int i = 0; i < nodeChilds.getLength(); i++) {
             Node e = nodeChilds.item(i);
-            if (e.getNodeName().equals(TAGS.KEY_TAG)) {
+            if (e.getNodeName().equals(Tags.KEY_TAG)) {
                 keys.add(e.getTextContent());
             }
-            else if (e.getNodeName().equals(TAGS.ERROR_MESSAGE_TAG)){
+            else if (e.getNodeName().equals(Tags.ERROR_MESSAGE_TAG)){
                 errorMessageTag = getErrorMessageTag(e);
 
             }
@@ -182,9 +182,9 @@ public class XMLParser {
             Node e = nodeChilds.item(i);
             String nodeName = e.getNodeName();
             String content = e.getTextContent();
-            if (nodeName.equals(TAGS.LINE_TAG)) {
+            if (nodeName.equals(Tags.LINE_TAG)) {
                 lines.add(content);
-            }else if (nodeName.equals(TAGS.FOOTER_TAG)){
+            }else if (nodeName.equals(Tags.FOOTER_TAG)){
                 footer=content;
             }
         }
@@ -202,7 +202,7 @@ public class XMLParser {
             Node e = sceenNodeChilds.item(i);
             String tag = e.getNodeName();
             String content = e.getTextContent();
-            if (tag.equals(TAGS.FOOTER_TAG)) {
+            if (tag.equals(Tags.FOOTER_TAG)) {
                 return content;
             }
         }

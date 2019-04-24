@@ -1,4 +1,4 @@
-package com.example.wmseasyexpert.Menu;
+package com.example.wmseasyexpert.menu;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;

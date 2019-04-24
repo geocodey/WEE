@@ -2,7 +2,7 @@
  * Copyright 2019 SSI Schaefer PEEM GmbH. All rights reserved.
  */
 
-package com.example.wmseasyexpert.Utils;
+package com.example.wmseasyexpert.utils;
 
 import java.io.PrintStream;
 

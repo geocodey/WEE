@@ -1,6 +1,6 @@
-package com.example.wmseasyexpert.Parser;
+package com.example.wmseasyexpert.parser;
 
-public interface TAGS {
+public interface Tags {
      String SCREEN_TAG = "screen";
      String OPTION_TAG = "option";
      String HELP_TAG = "help";
