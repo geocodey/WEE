@@ -17,8 +17,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".mvp.views.OptionsScreenActivity"
-            android:label="@string/title_activity_options_screen"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".mvp.views.HomeActivity"
             android:label="@string/title_activity_home"
