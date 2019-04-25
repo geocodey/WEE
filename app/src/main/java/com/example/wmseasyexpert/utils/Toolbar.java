@@ -8,13 +8,12 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
 import com.example.wmseasyexpert.R;
 
 /**
- * Copyright (c) 2018 Donorium. All rights reserved.
+ * Copyright (c) 2019 WEE. All rights reserved.
  */
 
 public class Toolbar extends RelativeLayout {
@@ -57,15 +56,6 @@ public class Toolbar extends RelativeLayout {
         } else {
             backButton.setVisibility(GONE);
         }
-    }
-
-    public View inflateCustomTitleView(int layout_notification_title) {
-        ViewGroup parent = (ViewGroup) title.getParent();
-        int index = parent.indexOfChild(title);
-        parent.removeView(title);
-        View view = LayoutInflater.from(getContext()).inflate(layout_notification_title, parent, false);
-        parent.addView(view, index);
-        return view;
     }
 
     public interface OnBackClickListener {
