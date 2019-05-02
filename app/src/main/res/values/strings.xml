@@ -14,4 +14,5 @@
     </string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_options_screen">OptionsScreenActivity</string>
+    <string name="options_footer_txt">Select an Option</string>
 </resources>
