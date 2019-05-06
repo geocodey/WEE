@@ -31,16 +31,22 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class XMLParser {
     private static final String TAG = XMLParser.class.getName();
+
     public static BaseScreenData parseDoc(String xml) {
-        Document doc = initDocument(xml);
         BaseScreenData screenData = null;
+        Document doc = initDocument(xml);
+        if (doc == null) {
+            return null;
+        }
         String type = getScreenType(doc);
         switch (type) {
             case ScreenType.OPTIONS:
-                screenData = parseOptionsScreen(doc);
+                screenData = getBaseScreenData(new OptionsScreenData(), doc);
+                ((OptionsScreenData) screenData).setOptions(getOptionsList(doc));
                 break;
             case ScreenType.INFO:
-                parseInfoScreen(doc);
+                screenData = getBaseScreenData(new BaseScreenData(), doc);
+                screenData.setTextLines(getTextLines(doc));
                 break;
             case ScreenType.INPUT:
                 parseInputScreen(doc);
@@ -52,6 +58,28 @@ public class XMLParser {
                 Log.e(TAG, "Screen type not found : " + type);
         }
         return screenData;
+    }
+
+    private static List<String> getTextLines(Document doc) {
+        List<String> lines = new ArrayList<>();
+        NodeList textTag = doc.getElementsByTagName(Tags.TEXT_TAG);
+        Node node = textTag.item(0);
+        NodeList nodeChilds = node.getChildNodes();
+        for (int i = 0; i < nodeChilds.getLength(); i++) {
+            Node e = nodeChilds.item(i);
+            lines.add(e.getTextContent());
+        }
+        return lines;
+    }
+
+    private static BaseScreenData getBaseScreenData(BaseScreenData baseScreenData, Document doc) {
+        baseScreenData.setScreenTag(getScreenTag(doc));
+        baseScreenData.setTitle(getTitle(doc));
+        baseScreenData.setInputTag(getInputTag(doc));
+        baseScreenData.setHelpTag(getHelpTag(doc));
+        baseScreenData.setFooter(getFooterTag(doc));
+        return baseScreenData;
+
     }
 
     private static Document initDocument(String xmlString) {
@@ -77,7 +105,7 @@ public class XMLParser {
         }
         NodeList entries = doc.getElementsByTagName(Tags.SCREEN_TAG);
         Node node = entries.item(0);
-        String type = node.getAttributes().getNamedItem("type").getNodeValue();
+        String type = node.getAttributes().getNamedItem(Tags.TYPE_TAG).getNodeValue();
         Log.d(TAG, "Type of screen : " + type);
         return type;
     }
@@ -110,18 +138,6 @@ public class XMLParser {
         helpTag.setHelpLines(lines);
         Log.d(TAG, helpTag.toString());
         return helpTag;
-    }
-
-    private static BaseScreenData parseOptionsScreen(Document doc) {
-        OptionsScreenData optionsScreenData = new OptionsScreenData();
-        optionsScreenData.setScreenTag(getScreenTag(doc));
-        optionsScreenData.setOptions(getOptionsList(doc));
-        optionsScreenData.setTitle(getTitle(doc));
-        optionsScreenData.setInputTag(getInputTag(doc));
-        optionsScreenData.setHelpTag(getHelpTag(doc));
-        optionsScreenData.setFooter(getFooterTag(doc));
-        Log.d(TAG, String.valueOf(optionsScreenData));
-        return  optionsScreenData;
     }
 
     private static ScreenTag getScreenTag(Document doc) {
@@ -166,8 +182,7 @@ public class XMLParser {
             Node e = nodeChilds.item(i);
             if (e.getNodeName().equals(Tags.KEY_TAG)) {
                 keys.add(e.getTextContent());
-            }
-            else if (e.getNodeName().equals(Tags.ERROR_MESSAGE_TAG)){
+            } else if (e.getNodeName().equals(Tags.ERROR_MESSAGE_TAG)) {
                 errorMessageTag = getErrorMessageTag(e);
 
             }
@@ -188,8 +203,8 @@ public class XMLParser {
             String content = e.getTextContent();
             if (nodeName.equals(Tags.LINE_TAG)) {
                 lines.add(content);
-            }else if (nodeName.equals(Tags.FOOTER_TAG)){
-                footer=content;
+            } else if (nodeName.equals(Tags.FOOTER_TAG)) {
+                footer = content;
             }
         }
         ErrorMessageTag errorMessageTag = new ErrorMessageTag();
@@ -211,10 +226,6 @@ public class XMLParser {
             }
         }
         return null;
-    }
-
-    private static void parseInfoScreen(Document doc) {
-        Log.d(TAG, "parseInfoScreen");
     }
 
     private static void parseInputScreen(Document doc) {

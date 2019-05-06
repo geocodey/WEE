@@ -14,8 +14,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wmseasyexpert.R;
+import com.example.wmseasyexpert.models.screen.BaseScreenData;
 import com.example.wmseasyexpert.models.screen.Option;
 import com.example.wmseasyexpert.models.screen.OptionsScreenData;
+import com.example.wmseasyexpert.parser.TestXMLs;
+import com.example.wmseasyexpert.parser.XMLParser;
 import com.example.wmseasyexpert.utils.Toolbar;
 
 import java.util.ArrayList;
@@ -76,7 +79,7 @@ public class OptionsScreenActivity extends AppCompatActivity {
 
     private void initFooter() {
         String helpKey = screenData.getHelpTag().getHelpKey();
-        String helpMessage = TextUtils.join("",screenData.getHelpTag().getHelpLines());
+        String helpMessage = TextUtils.join("", screenData.getHelpTag().getHelpLines());
         helpButton.setText(helpKey);
         helpButton.setOnClickListener(v -> alertDialog.show());
         alertDialog = new AlertDialog.Builder(OptionsScreenActivity.this).create();
@@ -84,16 +87,18 @@ public class OptionsScreenActivity extends AppCompatActivity {
         alertDialog.setMessage(helpMessage);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 (dialog, which) -> dialog.dismiss());
-        checkButton.setOnClickListener(v-> Toast.makeText(this,"hello", Toast.LENGTH_SHORT).show());
+        checkButton.setOnClickListener(v -> Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show());
     }
 
     private void previousScreen() {
         Intent intent = new Intent(OptionsScreenActivity.this, InfoScreenActivity.class);
+        BaseScreenData screenData = XMLParser.parseDoc(TestXMLs.infoXML);
+        intent.putExtra(BaseScreenData.class.getSimpleName(), screenData);
         OptionsScreenActivity.this.startActivity(intent);
     }
 
     private OptionsScreenData getScreenData() {
-        return (OptionsScreenData) Objects.requireNonNull(getIntent().getExtras()).getSerializable(OptionsScreenData.class.getSimpleName());
+        return (OptionsScreenData) Objects.requireNonNull(getIntent().getExtras()).getSerializable(BaseScreenData.class.getSimpleName());
     }
 
 

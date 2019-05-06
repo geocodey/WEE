@@ -9,4 +9,6 @@ public interface Tags {
      String KEY_TAG = "key";
      String ERROR_MESSAGE_TAG = "errorMessage";
      String LINE_TAG = "line";
+     String TYPE_TAG = "type";
+     String TEXT_TAG = "text";
 }

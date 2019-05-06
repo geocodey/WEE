@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     public void displayScreen(BaseScreenData screenData) {
         if(screenData.getScreenTag().getType().equals(ScreenType.OPTIONS)){
             Intent intent = new Intent(HomeActivity.this, OptionsScreenActivity.class);
-            intent.putExtra(OptionsScreenData.class.getSimpleName(), screenData);
+            intent.putExtra(BaseScreenData.class.getSimpleName(), screenData);
             HomeActivity.this.startActivity(intent);
         }
         Toast.makeText(this,"Display screen called",Toast.LENGTH_SHORT).show();

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,6 +27,8 @@ public class InfoScreenActivity extends AppCompatActivity {
     Button helpButton;
     @BindView(R.id.check_button)
     ImageView checkButton;
+    @BindView(R.id.info_text)
+    TextView infoText;
 
     private BaseScreenData screenData;
     private AlertDialog alertDialog;
@@ -44,6 +47,14 @@ public class InfoScreenActivity extends AppCompatActivity {
 
     private void initView() {
         screenData = getScreenData();
+        StringBuilder sb = new StringBuilder();
+        if (screenData != null) {
+            for (String line : screenData.getTextLines()) {
+                sb.append(line.replaceAll("(\n)|(\t)", ""));
+
+            }
+        }
+        infoText.setText(sb);
     }
 
     private void initToolbar() {
