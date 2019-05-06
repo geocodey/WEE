@@ -88,7 +88,6 @@ public class OptionsScreenActivity extends AppCompatActivity {
     }
 
     private void previousScreen() {
-
         Intent intent = new Intent(OptionsScreenActivity.this, InfoScreenActivity.class);
         OptionsScreenActivity.this.startActivity(intent);
     }
