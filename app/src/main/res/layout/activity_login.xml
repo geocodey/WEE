@@ -27,6 +27,7 @@
         android:layout_gravity="center">
 
         <LinearLayout
+            android:background="@drawable/login_card"
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

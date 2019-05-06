@@ -3,4 +3,42 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_margin">16dp</dimen>
+
+    <!-- Splash screen -->
+    <dimen name="splash_screen_logo_horizontal_margin">40dp</dimen>
+
+    <!-- Font sizes -->
+    <dimen name="fs_10">10sp</dimen>
+    <dimen name="fs_12">12sp</dimen>
+    <dimen name="fs_14">14sp</dimen>
+    <dimen name="fs_16">16sp</dimen>
+    <dimen name="fs_18">18sp</dimen>
+    <dimen name="fs_20">20sp</dimen>
+    <dimen name="fs_22">22sp</dimen>
+    <dimen name="fs_24">24sp</dimen>
+    <dimen name="fs_26">26sp</dimen>
+    <dimen name="fs_28">28sp</dimen>
+
+    <!-- Card -->
+    <dimen name="card_margin">16dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_rounded_corners">8dp</dimen>
+    <dimen name="card_inner_margin">16dp</dimen>
+
+    <!-- Button -->
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="button_rounded_corners">32dp</dimen>
+    <dimen name="button_elevation">2dp</dimen>
+    <dimen name="button_login_card_width">156dp</dimen>
+    <dimen name="button_register_card_width">200dp</dimen>
+
+    <!-- Textview -->
+    <dimen name="textview_underline_height">1.5dp</dimen>
+
+    <dimen name="icon_warning_size">20dp</dimen>
+    <dimen name="bonus_card_height">80dp</dimen>
+    <dimen name="bonus_card_width">72dp</dimen>
 </resources>
