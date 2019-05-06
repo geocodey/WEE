@@ -5,17 +5,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.example.wmseasyexpert.R;
 import com.example.wmseasyexpert.models.screen.BaseScreenData;
 import com.example.wmseasyexpert.models.screen.OptionsScreenData;
-import com.example.wmseasyexpert.models.screen.ScreenTag;
 import com.example.wmseasyexpert.mvp.contracts.HomeContract;
 import com.example.wmseasyexpert.mvp.presenters.HomePresenter;
 import com.example.wmseasyexpert.screen.ScreenType;
 import com.google.android.material.snackbar.Snackbar;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     public void displayScreen(BaseScreenData screenData) {
         if(screenData.getScreenTag().getType().equals(ScreenType.OPTIONS)){
             Intent intent = new Intent(HomeActivity.this, OptionsScreenActivity.class);
-            intent.putExtra(OptionsScreenData.class.getSimpleName(),(OptionsScreenData)screenData);
+            intent.putExtra(OptionsScreenData.class.getSimpleName(), screenData);
             HomeActivity.this.startActivity(intent);
         }
         Toast.makeText(this,"Display screen called",Toast.LENGTH_SHORT).show();

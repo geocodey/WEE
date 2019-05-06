@@ -1,14 +1,14 @@
 package com.example.wmseasyexpert.mvp.views;
 
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +21,6 @@ import com.example.wmseasyexpert.utils.Toolbar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +33,8 @@ public class OptionsScreenActivity extends AppCompatActivity {
     ListView optionsList;
     @BindView(R.id.help_button)
     Button helpButton;
+    @BindView(R.id.check_button)
+    ImageView checkButton;
 
 
     OptionsScreenData screenData;
@@ -83,10 +84,13 @@ public class OptionsScreenActivity extends AppCompatActivity {
         alertDialog.setMessage(helpMessage);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 (dialog, which) -> dialog.dismiss());
+        checkButton.setOnClickListener(v-> Toast.makeText(this,"hello", Toast.LENGTH_SHORT).show());
     }
 
     private void previousScreen() {
-        Log.d(TAG, "Backk");
+
+        Intent intent = new Intent(OptionsScreenActivity.this, InfoScreenActivity.class);
+        OptionsScreenActivity.this.startActivity(intent);
     }
 
     private OptionsScreenData getScreenData() {

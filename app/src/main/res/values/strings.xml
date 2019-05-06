@@ -15,4 +15,9 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_options_screen">OptionsScreenActivity</string>
     <string name="options_footer_txt">Select an Option</string>
+    <string name="title_activity_info_screen">InfoScreenActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="info_footer_txt">Info Screen</string>
 </resources>

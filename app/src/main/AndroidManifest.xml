@@ -16,6 +16,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".mvp.views.InfoScreenActivity"
+            android:label="@string/title_activity_info_screen"></activity>
+        <activity
             android:name=".mvp.views.OptionsScreenActivity"
             android:screenOrientation="portrait" />
         <activity
