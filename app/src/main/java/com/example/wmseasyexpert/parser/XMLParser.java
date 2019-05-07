@@ -29,6 +29,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import static com.example.wmseasyexpert.parser.Tags.HEIGHT_TAG;
+import static com.example.wmseasyexpert.parser.Tags.ID_TAG;
+import static com.example.wmseasyexpert.parser.Tags.KEEP_TAG;
+import static com.example.wmseasyexpert.parser.Tags.TYPE_TAG;
+import static com.example.wmseasyexpert.parser.Tags.WIDTH_TAG;
+
 public class XMLParser {
     private static final String TAG = XMLParser.class.getName();
 
@@ -52,6 +58,7 @@ public class XMLParser {
                 parseInputScreen(doc);
                 break;
             case ScreenType.MENU:
+                screenData = getBaseScreenData(new BaseScreenData(), doc);
                 parseMenuScreen(doc);
                 break;
             default:
@@ -144,11 +151,11 @@ public class XMLParser {
         ScreenTag screenTag = new ScreenTag();
         NodeList entries = doc.getElementsByTagName(Tags.SCREEN_TAG);
         Node node = entries.item(0);
-        screenTag.setId(Long.parseLong(node.getAttributes().getNamedItem("id").getNodeValue()));
-        screenTag.setHeight(Integer.parseInt(node.getAttributes().getNamedItem("height").getNodeValue()));
-        screenTag.setWidth(Integer.parseInt(node.getAttributes().getNamedItem("width").getNodeValue()));
-        screenTag.setType(node.getAttributes().getNamedItem("type").getNodeValue());
-        screenTag.setKeepInstance(Boolean.parseBoolean(node.getAttributes().getNamedItem("keepInstance").getNodeValue()));
+        screenTag.setId(Long.parseLong(node.getAttributes().getNamedItem(ID_TAG).getNodeValue()));
+        screenTag.setHeight(Integer.parseInt(node.getAttributes().getNamedItem(HEIGHT_TAG).getNodeValue()));
+        screenTag.setWidth(Integer.parseInt(node.getAttributes().getNamedItem(WIDTH_TAG).getNodeValue()));
+        screenTag.setType(node.getAttributes().getNamedItem(TYPE_TAG).getNodeValue());
+        screenTag.setKeepInstance(Boolean.parseBoolean(node.getAttributes().getNamedItem(KEEP_TAG).getNodeValue()));
 
         Log.d(TAG, "Screen tag - " + screenTag);
         return screenTag;
