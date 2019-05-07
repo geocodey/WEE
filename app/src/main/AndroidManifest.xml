@@ -19,6 +19,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
+        <activity android:name=".mvp.views.MenuScreenActivity"></activity>
         <activity
             android:name=".mvp.views.InfoScreenActivity"
             android:label="@string/title_activity_info_screen" />
