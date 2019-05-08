@@ -22,7 +22,6 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private HomePresenter presenter;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    private long start;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,23 +35,39 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     @Override
     protected void onStart() {
         super.onStart();
-        start = System.currentTimeMillis();
         presenter.getScreen();
     }
 
     @Override
     public void displayScreen(BaseScreenData screenData) {
-        Log.d(TAG, "Screen get and parsing time : " + (System.currentTimeMillis()-start));
-        if (screenData.getScreenTag().getType().equals(ScreenType.OPTIONS)) {
-            Intent intent = new Intent(HomeActivity.this, OptionsScreenActivity.class);
-            intent.putExtra(BaseScreenData.class.getSimpleName(), screenData);
-            HomeActivity.this.startActivity(intent);
-        } else if (screenData.getScreenTag().getType().equals(ScreenType.MENU)) {
-            Intent intent = new Intent(HomeActivity.this, MenuScreenActivity.class);
+        if (screenData == null) {
+            Log.e(TAG, "screen data received is null.");
+            return;
+        }
+        Intent intent = null;
+        String type = screenData.getScreenTag().getType();
+        switch (type) {
+            case ScreenType.INFO:
+                intent = new Intent(HomeActivity.this, InfoScreenActivity.class);
+                break;
+            case ScreenType.INPUT:
+                intent = new Intent(HomeActivity.this, InputScreenActivity.class);
+                break;
+            case ScreenType.MENU:
+                intent = new Intent(HomeActivity.this, MenuScreenActivity.class);
+                break;
+            case ScreenType.OPTIONS:
+                intent = new Intent(HomeActivity.this, OptionsScreenActivity.class);
+                break;
+            default:
+                Toast.makeText(this, "Wrong screen type found.", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+        if (intent != null) {
             intent.putExtra(BaseScreenData.class.getSimpleName(), screenData);
             HomeActivity.this.startActivity(intent);
         }
-        Toast.makeText(this, "Display screen called", Toast.LENGTH_SHORT).show();
     }
 
     @Override
