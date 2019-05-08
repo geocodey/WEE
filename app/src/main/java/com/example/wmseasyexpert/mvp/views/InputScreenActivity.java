@@ -3,6 +3,7 @@ package com.example.wmseasyexpert.mvp.views;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,8 @@ public class InputScreenActivity extends AppCompatActivity {
     Button helpButton;
     @BindView(R.id.check_button)
     ImageView checkButton;
+    @BindView(R.id.input_field)
+    EditText inputField;
 
 
     private BaseScreenData screenData;

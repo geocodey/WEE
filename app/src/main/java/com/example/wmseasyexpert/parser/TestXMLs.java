@@ -2,7 +2,7 @@ package com.example.wmseasyexpert.parser;
 
 public class TestXMLs {
     public static final String optionsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-            "<screen id=\"1\" height=\"8\" width	=\"20\" type=\"options\" keepInstance=\"true\">\n" +
+            "<screen id=\"1\" height=\"8\" width	=\"20\" type=\"options\" keep=\"true\">\n" +
             "	<title>OPTIONS</title>\n" +
             "	<options>\n" +
             "		<option value=\"0\" text=\"zero\" selected=\"true\"/>\n" +
@@ -40,7 +40,7 @@ public class TestXMLs {
             "</screen>\n";
     public static final String inputXML =
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                    "<screen id=\"1\" height=\"8\" width	=\"20\" type=\"input\" keepInstance=\"false\">\n" +
+                    "<screen id=\"1\" height=\"8\" width	=\"20\" type=\"input\" keep=\"false\">\n" +
                     "	<title>Input title</title>\n" +
                     "	<text>\n" +
                     "		<line></line>\n" +
@@ -77,7 +77,7 @@ public class TestXMLs {
                     "</screen>\n";
     public static final String infoXML =
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                    "<screen id=\"2\" height=\"8\" width	=\"20\" type=\"info\" keepInstance=\"false\">\n" +
+                    "<screen id=\"2\" height=\"8\" width	=\"20\" type=\"info\" keep=\"false\">\n" +
                     "	<title>Information</title>\n" +
                     "	<text>\n" +
                     "		<line>This is an informat</line>\n" +
@@ -115,7 +115,7 @@ public class TestXMLs {
                     "</screen>\n";
     public static final String menuXML =
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                    "<screen id=\"1\" height=\"8\" width	=\"20\" type=\"menu\" keepInstance=\"true\">\n" +
+                    "<screen id=\"1\" height=\"8\" width	=\"20\" type=\"menu\" keep=\"true\">\n" +
                     "	<title> M E N U E</title>\n" +
                     "	<node id=\"1\" desc=\"Main\">\n" +
                     "		<node id=\"2\" desc=\"Screen lists\">\n" +

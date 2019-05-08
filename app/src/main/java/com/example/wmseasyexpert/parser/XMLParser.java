@@ -55,6 +55,7 @@ public class XMLParser {
                 screenData.setTextLines(getTextLines(doc));
                 break;
             case ScreenType.INPUT:
+                screenData = getBaseScreenData(new BaseScreenData(), doc);
                 parseInputScreen(doc);
                 break;
             case ScreenType.MENU:

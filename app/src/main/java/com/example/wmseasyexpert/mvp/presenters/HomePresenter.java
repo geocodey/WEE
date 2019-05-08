@@ -19,9 +19,9 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void getScreen() {
-        //BaseScreenData screenData = XMLParser.parseDoc(TestXMLs.optionsXML);
-        //view.displayScreen(screenData);
-        GetScreenNetworkInteractor.execute(new GetScreenNetworkInteractor.GetScreenResponseCallback() {
+        BaseScreenData screenData = XMLParser.parseDoc(TestXMLs.inputXML);
+        view.displayScreen(screenData);
+        /*GetScreenNetworkInteractor.execute(new GetScreenNetworkInteractor.GetScreenResponseCallback() {
             @Override
             public void onGetScreenResponseSuccess(ScreenResponse response) {
                 BaseScreenData screenData = XMLParser.parseDoc(response.getResult());
@@ -34,6 +34,6 @@ public class HomePresenter implements HomeContract.Presenter {
             }
 
         });
-
+*/
     }
 }
