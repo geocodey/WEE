@@ -23,4 +23,5 @@
     <string name="menu_footer_txt">Select Menu</string>
     <string name="input_footer_txt">Input menu</string>
     <string name="input_field_hint">insert your text here</string>
+    <string name="prompt_user">User</string>
 </resources>
