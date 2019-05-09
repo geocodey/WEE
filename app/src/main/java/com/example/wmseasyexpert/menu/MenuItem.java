@@ -2,6 +2,8 @@ package com.example.wmseasyexpert.menu;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public abstract class MenuItem implements MenuConstants {
+public abstract class MenuItem implements MenuConstants, Serializable {
     /**
      * Object ID (from database)
      */

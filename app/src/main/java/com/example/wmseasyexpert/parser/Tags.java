@@ -11,8 +11,10 @@ public interface Tags {
     String LINE_TAG = "line";
     String TYPE_TAG = "type";
     String TEXT_TAG = "text";
-    String ID_TAG ="id";
-    String HEIGHT_TAG="height";
-    String WIDTH_TAG="width";
-    String KEEP_TAG="keep";
+    String ID_TAG = "id";
+    String HEIGHT_TAG = "height";
+    String WIDTH_TAG = "width";
+    String KEEP_TAG = "keep";
+    String NODE_TAG = "node";
+    String LEAF_TAG = "leaf";
 }

@@ -2,18 +2,19 @@ package com.example.wmseasyexpert.parser;
 
 import android.util.Log;
 
+import com.example.wmseasyexpert.menu.MenuItem;
+import com.example.wmseasyexpert.menu.MenuNode;
 import com.example.wmseasyexpert.models.screen.BaseScreenData;
 import com.example.wmseasyexpert.models.screen.ErrorMessageTag;
 import com.example.wmseasyexpert.models.screen.HelpTag;
 import com.example.wmseasyexpert.models.screen.InputTag;
+import com.example.wmseasyexpert.models.screen.MenuScreenData;
 import com.example.wmseasyexpert.models.screen.Option;
 import com.example.wmseasyexpert.models.screen.OptionsScreenData;
 import com.example.wmseasyexpert.models.screen.ScreenTag;
 import com.example.wmseasyexpert.screen.ScreenType;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -59,7 +60,8 @@ public class XMLParser {
                 parseInputScreen(doc);
                 break;
             case ScreenType.MENU:
-                screenData = getBaseScreenData(new BaseScreenData(), doc);
+                screenData = getBaseScreenData(new MenuScreenData(), doc);
+                ((MenuScreenData) screenData).setMainNode(parseMenuScreen(doc));
                 parseMenuScreen(doc);
                 break;
             default:
@@ -240,30 +242,19 @@ public class XMLParser {
         Log.d(TAG, "parseInputScreen");
     }
 
-    private static void parseMenuScreen(Document doc) {
+    private static MenuItem parseMenuScreen(Document doc) {
         Log.d(TAG, "parseMenuScreen");
-    }
-
-    private static void listAllAttributes(Element element) {
-
-        Log.d(TAG, "List attributes for node: " + element.getNodeName());
-
-        // get a map containing the attributes of this node
-        NamedNodeMap attributes = element.getAttributes();
-
-        // get the number of nodes in this map
-        int numAttrs = attributes.getLength();
-
-        for (int i = 0; i < numAttrs; i++) {
-            Attr attr = (Attr) attributes.item(i);
-
-            String attrName = attr.getNodeName();
-            String attrValue = attr.getNodeValue();
-
-            Log.d(TAG, "Found attribute: " + attrName + " with value: " + attrValue);
-
+        NodeList docNodes = doc.getChildNodes();
+        Node screenNode = docNodes.item(0);
+        NodeList sceenNodeChilds = screenNode.getChildNodes();
+        for (int i = 0; i < sceenNodeChilds.getLength(); i++) {
+            Node e = sceenNodeChilds.item(i);
+            String tag = e.getNodeName();
+            if (tag.equals(Tags.NODE_TAG)) {
+                return MenuNode.createNode(e, null);
+            }
         }
+        return null;
     }
-
 
 }

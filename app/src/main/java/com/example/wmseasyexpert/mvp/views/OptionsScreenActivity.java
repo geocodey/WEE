@@ -59,9 +59,6 @@ public class OptionsScreenActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, getListOfOptions());
         optionsList.setAdapter(adapter);
-
-        Log.d(TAG, String.valueOf(screenData));
-        Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
     }
 
     private List<String> getListOfOptions() {

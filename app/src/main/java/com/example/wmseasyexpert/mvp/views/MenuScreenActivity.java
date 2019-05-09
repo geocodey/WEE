@@ -1,17 +1,24 @@
 package com.example.wmseasyexpert.mvp.views;
 
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.example.wmseasyexpert.R;
+import com.example.wmseasyexpert.menu.MenuItem;
+import com.example.wmseasyexpert.menu.MenuNode;
 import com.example.wmseasyexpert.models.screen.BaseScreenData;
+import com.example.wmseasyexpert.models.screen.MenuScreenData;
 import com.example.wmseasyexpert.utils.Toolbar;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +31,8 @@ public class MenuScreenActivity extends AppCompatActivity {
     Button helpButton;
     @BindView(R.id.check_button)
     ImageView checkButton;
+    @BindView(R.id.menu_list)
+    ListView menuList;
 
     private BaseScreenData screenData;
     private AlertDialog alertDialog;
@@ -41,6 +50,20 @@ public class MenuScreenActivity extends AppCompatActivity {
 
     private void initView() {
         screenData = getScreenData();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, getMenuList());
+        menuList.setAdapter(adapter);
+    }
+
+    private List<String> getMenuList() {
+        MenuNode menu = (MenuNode) ((MenuScreenData) screenData).getMainNode();
+        return menu.getLines();
+    }
+
+    private void getMenuStructure(BaseScreenData screenData) {
+        MenuItem menu = ((MenuScreenData) screenData).getMainNode();
+        Toast.makeText(this, menu.toString(), Toast.LENGTH_SHORT).show();
     }
 
     private void initToolbar() {
