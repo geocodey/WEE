@@ -62,7 +62,6 @@ public class XMLParser {
             case ScreenType.MENU:
                 screenData = getBaseScreenData(new MenuScreenData(), doc);
                 ((MenuScreenData) screenData).setMainNode(parseMenuScreen(doc));
-                parseMenuScreen(doc);
                 break;
             default:
                 Log.e(TAG, "Screen type not found : " + type);

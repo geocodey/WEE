@@ -19,9 +19,10 @@ public class MenuNode extends MenuItem {
      * All child nodes.
      */
     private List<MenuItem> childs;
+
     /**
-     * @param id Database id
-     * @param desc Nodescription in apropiate language
+     * @param id   Database id
+     * @param desc Node description in appropriate language
      */
     public MenuNode(long id, String desc, MenuItem parent) {
         super(id, desc, parent);
@@ -31,36 +32,36 @@ public class MenuNode extends MenuItem {
     /**
      * Add a new child fot this node.
      */
-    public void addChild(MenuItem child){
+    public void addChild(MenuItem child) {
         this.childs.add(child);
     }
 
     /**
-     * @return	The text lines of the current node
-     * 			which will be displayed on the screen.
+     * @return The text lines of the current node
+     * which will be displayed on the screen.
      */
-    public List<String> getLines(){
+    public List<String> getLines() {
         // get number of lines
-        int size = (getParent() == null)?childs.size() + 1:childs.size();
+        int size = (getParent() == null) ? childs.size() + 1 : childs.size();
         Vector<String> lines = new Vector<>(size);
         String line;
 
-        if (getParent() != null){
+        if (getParent() != null) {
             // if it has a parent then add the parrent with option 0
             line = "+0 " + getParent().getDesc();
-        }else{
+        } else {
             // add the description of the current node
             // but without 0 option
             line = "   " + getDesc();
         }
         lines.add(line);
-        for (int i = 0; i < childs.size(); i++){
+        for (int i = 0; i < childs.size(); i++) {
             line = "";
             // add all the description for childs
             MenuItem menuItem = childs.get(i);
             if (menuItem.isNode()) {
                 line += "+"; // for nodes with put a +
-            }else{
+            } else {
                 line += " "; // for nodes with put a +
             }
             line += i + 1; // add item option
@@ -77,7 +78,7 @@ public class MenuNode extends MenuItem {
         StringBuilder sb = new StringBuilder();
 
         List<String> lines = getLines();
-        for (int i = 0; i < lines.size(); i++){
+        for (int i = 0; i < lines.size(); i++) {
             sb.append(lines.get(i));
             sb.append("\n");
         }
@@ -91,6 +92,11 @@ public class MenuNode extends MenuItem {
     }
 
     @Override
+    public String getNextScreen() {
+        return String.valueOf(this.getId());
+    }
+
+    @Override
     public boolean isNode() {
         return true;
     }
@@ -98,10 +104,11 @@ public class MenuNode extends MenuItem {
     /**
      * Builds the Regular Expression to validate the
      * input for this node.
-     * @return	"[0..childsNo]" in case it has a parrent
-     * 			"[1..childsNo]" in case it doesn't have parrent
+     *
+     * @return    "[0..childsNo]" in case it has a parrent
+     * "[1..childsNo]" in case it doesn't have parrent
      */
-    public String getRegex(){
+    public String getRegex() {
         String regex = "[";
 
         if (getParent() == null)
@@ -119,10 +126,11 @@ public class MenuNode extends MenuItem {
     /**
      * Loads the menu hierarchy from an XML node and creates
      * a new node with it.
+     *
      * @param currentXMLNode xml
-     * @param parent parent node
+     * @param parent         parent node
      */
-    public static MenuItem createNode(Node currentXMLNode, MenuNode parent){
+    public static MenuItem createNode(Node currentXMLNode, MenuNode parent) {
 
         // get nodes attributes
         NamedNodeMap attributesMaps = currentXMLNode.getAttributes();
@@ -138,14 +146,13 @@ public class MenuNode extends MenuItem {
         // create childs
         NodeList childsXMLList = currentXMLNode.getChildNodes();
 
-        for (int i = 0; i < childsXMLList.getLength(); i++){
+        for (int i = 0; i < childsXMLList.getLength(); i++) {
             Node node = childsXMLList.item(i);
             MenuItem newMenuItem = null;
-            if (node.getNodeName().equals(MENUNODE_NAME)){
+            if (node.getNodeName().equals(MENUNODE_NAME)) {
                 // we have a new node
                 newMenuItem = MenuNode.createNode(node, currentMenuNode);
-            }
-            else if (node.getNodeName().equals(MENULEAF_NAME)){
+            } else if (node.getNodeName().equals(MENULEAF_NAME)) {
                 // we have a new leaf
                 newMenuItem = MenuLeaf.createLeaf(node, currentMenuNode);
             }

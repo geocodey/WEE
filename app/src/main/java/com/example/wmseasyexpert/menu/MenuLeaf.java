@@ -27,6 +27,11 @@ public class MenuLeaf extends MenuItem {
     }
 
     @Override
+    public String getNextScreen() {
+        return result;
+    }
+
+    @Override
     public boolean isNode() {
         return false;
     }

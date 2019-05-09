@@ -29,6 +29,8 @@ public abstract class MenuItem implements MenuConstants, Serializable {
 
     public abstract boolean isLeaf();
 
+    public abstract String getNextScreen();
+
     @Override
     @NonNull
     public String toString() {

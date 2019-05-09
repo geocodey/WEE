@@ -2,6 +2,7 @@ package com.example.wmseasyexpert.mvp.views;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -58,12 +59,10 @@ public class MenuScreenActivity extends AppCompatActivity {
 
     private List<String> getMenuList() {
         MenuNode menu = (MenuNode) ((MenuScreenData) screenData).getMainNode();
+        for (MenuItem child : menu.getChilds()) {
+            Log.d(TAG, child.getNextScreen());
+        }
         return menu.getLines();
-    }
-
-    private void getMenuStructure(BaseScreenData screenData) {
-        MenuItem menu = ((MenuScreenData) screenData).getMainNode();
-        Toast.makeText(this, menu.toString(), Toast.LENGTH_SHORT).show();
     }
 
     private void initToolbar() {
