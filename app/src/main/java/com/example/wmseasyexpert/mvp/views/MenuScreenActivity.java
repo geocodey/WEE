@@ -1,5 +1,6 @@
 package com.example.wmseasyexpert.mvp.views;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,6 +38,7 @@ public class MenuScreenActivity extends AppCompatActivity {
 
     private BaseScreenData screenData;
     private AlertDialog alertDialog;
+    private String nextScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +54,18 @@ public class MenuScreenActivity extends AppCompatActivity {
     private void initView() {
         screenData = getScreenData();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, getMenuList());
+        ArrayAdapter<MenuItem> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getMenuList());
         menuList.setAdapter(adapter);
+        menuList.setOnItemClickListener((parent, view, position, id) -> {
+            MenuItem mi = (MenuItem) menuList.getItemAtPosition(position);
+            nextScreen = mi.getNextScreen();
+        });
+
     }
 
-    private List<String> getMenuList() {
+    private List<MenuItem> getMenuList() {
         MenuNode menu = (MenuNode) ((MenuScreenData) screenData).getMainNode();
-        for (MenuItem child : menu.getChilds()) {
-            Log.d(TAG, child.getNextScreen());
-        }
-        return menu.getLines();
+        return menu.getChilds();
     }
 
     private void initToolbar() {
