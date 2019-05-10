@@ -4,12 +4,10 @@ import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @SuppressWarnings("unused")
 @Setter
 @Getter
-@ToString
 public class Option implements Serializable {
 
     /**
@@ -25,4 +23,9 @@ public class Option implements Serializable {
      * False otherwise
      */
     private boolean selected;
+
+    @Override
+    public String toString() {
+        return text;
+    }
 }

@@ -3,6 +3,7 @@ package com.example.wmseasyexpert.mvp.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -38,8 +39,9 @@ public class OptionsScreenActivity extends AppCompatActivity {
     Button confirmButton;
 
 
-    OptionsScreenData screenData;
+    private OptionsScreenData screenData;
     private AlertDialog alertDialog;
+    private String nextScreenId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +56,14 @@ public class OptionsScreenActivity extends AppCompatActivity {
         screenData = getScreenData();
         initToolbar();
         initFooter();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, getListOfOptions());
+        ArrayAdapter<Option> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, screenData.getOptions());
         optionsList.setAdapter(adapter);
-    }
-
-    private List<String> getListOfOptions() {
-        List<String> options = new ArrayList<>();
-        for (Option option : screenData.getOptions()) {
-            options.add(option.getText());
-        }
-        return options;
+        optionsList.setOnItemClickListener((parent, view, position, id) -> {
+            Option opt = (Option) optionsList.getItemAtPosition(position);
+            nextScreenId = opt.getValue();
+            confirmButton.setEnabled(true);
+        });
     }
 
     private void initToolbar() {
@@ -82,7 +81,7 @@ public class OptionsScreenActivity extends AppCompatActivity {
         alertDialog.setMessage(helpMessage);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 (dialog, which) -> dialog.dismiss());
-        confirmButton.setOnClickListener(v -> Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show());
+        confirmButton.setOnClickListener(v -> Toast.makeText(this, nextScreenId, Toast.LENGTH_SHORT).show());
     }
 
     private void previousScreen() {
