@@ -21,7 +21,6 @@ public class HomePresenter implements HomeContract.Presenter {
             @Override
             public void onGetScreenResponseSuccess(ScreenResponse response) {
                 BaseScreenData screenData = XMLParser.parseDoc(response.getResult());
-                screenData = XMLParser.parseDoc(TestXMLs.optionsXML); //TODO:remove
                 view.displayScreen(screenData);
             }
 

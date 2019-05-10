@@ -57,8 +57,9 @@
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:drawableEnd="@drawable/check_button_custom"
-                android:scaleType="centerCrop"
+                android:enabled="false"
                 android:padding="16dp"
+                android:scaleType="centerCrop"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
