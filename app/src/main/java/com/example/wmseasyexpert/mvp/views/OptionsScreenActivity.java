@@ -3,10 +3,8 @@ package com.example.wmseasyexpert.mvp.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,8 +34,8 @@ public class OptionsScreenActivity extends AppCompatActivity {
     ListView optionsList;
     @BindView(R.id.help_button)
     Button helpButton;
-    @BindView(R.id.check_button)
-    ImageView checkButton;
+    @BindView(R.id.confirm_button)
+    Button confirmButton;
 
 
     OptionsScreenData screenData;
@@ -84,7 +82,7 @@ public class OptionsScreenActivity extends AppCompatActivity {
         alertDialog.setMessage(helpMessage);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 (dialog, which) -> dialog.dismiss());
-        checkButton.setOnClickListener(v -> Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show());
+        confirmButton.setOnClickListener(v -> Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show());
     }
 
     private void previousScreen() {

@@ -50,14 +50,13 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-            <ImageView
-                android:id="@+id/check_button"
-                style="?android:borderlessButtonStyle"
+            <Button
+                android:id="@+id/confirm_button"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
+                android:drawableEnd="@drawable/check_button_custom"
                 android:padding="16dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_check_white_24dp"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

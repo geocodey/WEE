@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -28,8 +27,8 @@ public class InputScreenActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.help_button)
     Button helpButton;
-    @BindView(R.id.check_button)
-    ImageView checkButton;
+    @BindView(R.id.confirm_button)
+    Button confirmButton;
     @BindView(R.id.input_field)
     EditText inputField;
 
@@ -72,7 +71,7 @@ public class InputScreenActivity extends AppCompatActivity {
         alertDialog.setMessage(helpMessage);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 (dialog, which) -> dialog.dismiss());
-        checkButton.setOnClickListener(v -> Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show());
+        confirmButton.setOnClickListener(v -> Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show());
     }
 
     private BaseScreenData getScreenData() {

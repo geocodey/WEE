@@ -3,7 +3,6 @@ package com.example.wmseasyexpert.mvp.views;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,8 +13,6 @@ import com.example.wmseasyexpert.R;
 import com.example.wmseasyexpert.models.screen.BaseScreenData;
 import com.example.wmseasyexpert.utils.Toolbar;
 
-import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -25,8 +22,8 @@ public class InfoScreenActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.help_button)
     Button helpButton;
-    @BindView(R.id.check_button)
-    ImageView checkButton;
+    @BindView(R.id.confirm_button)
+    Button confirmButton;
     @BindView(R.id.info_text)
     TextView infoText;
 
@@ -78,7 +75,7 @@ public class InfoScreenActivity extends AppCompatActivity {
         alertDialog.setMessage(helpMessage);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 (dialog, which) -> dialog.dismiss());
-        checkButton.setOnClickListener(v -> Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show());
+        confirmButton.setOnClickListener(v -> Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show());
     }
 
     private BaseScreenData getScreenData() {

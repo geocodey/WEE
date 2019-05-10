@@ -1,12 +1,9 @@
 package com.example.wmseasyexpert.mvp.views;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,14 +28,14 @@ public class MenuScreenActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.help_button)
     Button helpButton;
-    @BindView(R.id.check_button)
-    ImageView checkButton;
+    @BindView(R.id.confirm_button)
+    Button confirmButton;
     @BindView(R.id.menu_list)
     ListView menuList;
 
     private BaseScreenData screenData;
     private AlertDialog alertDialog;
-    private String nextScreen;
+    private String nextScreenId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +50,13 @@ public class MenuScreenActivity extends AppCompatActivity {
 
     private void initView() {
         screenData = getScreenData();
-
+        confirmButton.setEnabled(false);
         ArrayAdapter<MenuItem> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getMenuList());
         menuList.setAdapter(adapter);
         menuList.setOnItemClickListener((parent, view, position, id) -> {
             MenuItem mi = (MenuItem) menuList.getItemAtPosition(position);
-            nextScreen = mi.getNextScreen();
+            nextScreenId = mi.getNextScreen();
+            confirmButton.setEnabled(true);
         });
 
     }
@@ -89,7 +87,7 @@ public class MenuScreenActivity extends AppCompatActivity {
         alertDialog.setMessage(helpMessage);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 (dialog, which) -> dialog.dismiss());
-        checkButton.setOnClickListener(v -> Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show());
+        confirmButton.setOnClickListener(v -> Toast.makeText(this, nextScreenId, Toast.LENGTH_SHORT).show());
     }
 
     private BaseScreenData getScreenData() {

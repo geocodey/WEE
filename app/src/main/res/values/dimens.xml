@@ -30,7 +30,7 @@
 
     <!-- Button -->
     <dimen name="button_height">48dp</dimen>
-    <dimen name="button_rounded_corners">32dp</dimen>
+    <dimen name="button_rounded_corners">16dp</dimen>
     <dimen name="button_elevation">2dp</dimen>
     <dimen name="button_login_card_width">156dp</dimen>
     <dimen name="button_register_card_width">200dp</dimen>
