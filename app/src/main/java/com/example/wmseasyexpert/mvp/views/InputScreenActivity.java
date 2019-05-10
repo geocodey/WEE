@@ -3,7 +3,9 @@ package com.example.wmseasyexpert.mvp.views;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -34,6 +36,7 @@ public class InputScreenActivity extends AppCompatActivity {
 
     private BaseScreenData screenData;
     private AlertDialog alertDialog;
+    private String inputString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,29 @@ public class InputScreenActivity extends AppCompatActivity {
 
     private void initView() {
         screenData = getScreenData();
+        inputField.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if (s.length() != 0) {
+                    inputString = s.toString();
+                    confirmButton.setEnabled(true);
+                } else {
+                    inputString = "";
+                    confirmButton.setEnabled(false);
+                }
+            }
+        });
     }
 
     private void initToolbar() {
@@ -71,7 +97,7 @@ public class InputScreenActivity extends AppCompatActivity {
         alertDialog.setMessage(helpMessage);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 (dialog, which) -> dialog.dismiss());
-        confirmButton.setOnClickListener(v -> Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show());
+        confirmButton.setOnClickListener(v -> Toast.makeText(this, inputString, Toast.LENGTH_SHORT).show());
     }
 
     private BaseScreenData getScreenData() {
