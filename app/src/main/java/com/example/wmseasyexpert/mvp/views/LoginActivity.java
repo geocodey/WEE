@@ -7,16 +7,20 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wmseasyexpert.R;
+import com.example.wmseasyexpert.models.screen.BaseScreenData;
 import com.example.wmseasyexpert.mvp.contracts.LoginContract;
 import com.example.wmseasyexpert.mvp.presenters.LoginPresenter;
+import com.example.wmseasyexpert.screen.ScreenType;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +31,8 @@ import butterknife.OnEditorAction;
  * A login screen that offers login via user/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
+
+    private static final String TAG = LoginActivity.class.getName();
     private LoginPresenter presenter;
     // UI references.
     @BindView(R.id.username)
@@ -156,11 +162,42 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         return password.length() > 4;
     }
 
+    @Override
+    public void displayScreen(BaseScreenData screenData) {
+        if (screenData == null) {
+            Log.e(TAG, "screen data received is null.");
+            return;
+        }
+        Intent intent = null;
+        String type = screenData.getScreenTag().getType();
+        switch (type) {
+            case ScreenType.INFO:
+                intent = new Intent(LoginActivity.this, InfoScreenActivity.class);
+                break;
+            case ScreenType.INPUT:
+                intent = new Intent(LoginActivity.this, InputScreenActivity.class);
+                break;
+            case ScreenType.MENU:
+                intent = new Intent(LoginActivity.this, MenuScreenActivity.class);
+                break;
+            case ScreenType.OPTIONS:
+                intent = new Intent(LoginActivity.this, OptionsScreenActivity.class);
+                break;
+            default:
+                Toast.makeText(this, "Wrong screen type found.", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+        if (intent != null) {
+            intent.putExtra(BaseScreenData.class.getSimpleName(), screenData);
+            LoginActivity.this.startActivity(intent);
+        }
+    }
 
     @Override
-    public void proceedToHome() {
-        Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
-        LoginActivity.this.startActivity(myIntent);
+    public void showOnGetScreenError() {
+        Toast.makeText(this, "error on get screen", Toast.LENGTH_SHORT).show();
     }
+
 }
 

@@ -1,7 +1,12 @@
 package com.example.wmseasyexpert.mvp.presenters;
 
 import android.os.AsyncTask;
+
+import com.example.wmseasyexpert.models.screen.BaseScreenData;
+import com.example.wmseasyexpert.models.screen.ScreenResponse;
 import com.example.wmseasyexpert.mvp.contracts.LoginContract;
+import com.example.wmseasyexpert.network.interactors.GetScreenNetworkInteractor;
+import com.example.wmseasyexpert.parser.XMLParser;
 
 public class LoginPresenter implements LoginContract.Presenter{
     private final LoginContract.View view;
@@ -70,7 +75,7 @@ public class LoginPresenter implements LoginContract.Presenter{
             view.showProgress(false);
 
             if (success) {
-                view.proceedToHome();
+                login(mEmail,mPassword);
             } else {
                 view.showWrongPasswordError();
             }
@@ -81,5 +86,21 @@ public class LoginPresenter implements LoginContract.Presenter{
             mAuthTask = null;
             view.showProgress(false);
         }
+    }
+
+    private void login(String user, String password) {
+        GetScreenNetworkInteractor.execute(new GetScreenNetworkInteractor.GetScreenResponseCallback() {
+            @Override
+            public void onGetScreenResponseSuccess(ScreenResponse response) {
+                BaseScreenData screenData = XMLParser.parseDoc(response.getResult());
+                view.displayScreen(screenData);
+            }
+
+            @Override
+            public void onGetScreenResponseGenericError() {
+                view.showOnGetScreenError();
+            }
+
+        });
     }
 }
