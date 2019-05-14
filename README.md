@@ -59,6 +59,11 @@ class ExampleActivity extends Activity {
 }
 ```
 
+# Retrofit 2.x
+Retrofit is a REST Client for Java and Android. It makes it relatively easy to retrieve and upload JSON (or other structured data) via a REST based webservice. In Retrofit you configure which converter is used for the data serialization. Typically for JSON you use GSon, but you can add custom converters to process XML or other protocols. Retrofit uses the OkHttp library for HTTP requests.
+
+[how-to retrofit](https://square.github.io/retrofit/)
+
 # Migrated to AndroidX
 AndroidX is the open-source project that the Android team uses to develop, test, package, version and release libraries within Jetpack.
 
