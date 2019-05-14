@@ -48,14 +48,13 @@ public class OptionsScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options_screen);
         ButterKnife.bind(this);
-        initView();
-
-    }
-
-    private void initView() {
         screenData = getScreenData();
         initToolbar();
         initFooter();
+        initView();
+    }
+
+    private void initView() {
         ArrayAdapter<Option> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, screenData.getOptions());
         optionsList.setAdapter(adapter);

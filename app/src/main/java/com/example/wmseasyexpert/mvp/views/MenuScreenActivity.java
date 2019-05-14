@@ -49,7 +49,6 @@ public class MenuScreenActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        screenData = getScreenData();
         ArrayAdapter<MenuItem> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getMenuList());
         menuList.setAdapter(adapter);
         menuList.setOnItemClickListener((parent, view, position, id) -> {

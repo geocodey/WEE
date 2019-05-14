@@ -43,7 +43,6 @@ public class InfoScreenActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        screenData = getScreenData();
         StringBuilder sb = new StringBuilder();
         if (screenData != null) {
             for (String line : screenData.getTextLines()) {

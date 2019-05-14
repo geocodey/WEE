@@ -50,7 +50,6 @@ public class InputScreenActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        screenData = getScreenData();
         inputField.addTextChangedListener(new TextWatcher() {
 
             @Override
