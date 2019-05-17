@@ -2,6 +2,7 @@ package com.example.wmseasyexpert.mvp.views;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -22,7 +23,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MenuScreenActivity extends BaseScreenActivity {
-    private static String TAG = MenuScreenActivity.class.getName();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.help_button)

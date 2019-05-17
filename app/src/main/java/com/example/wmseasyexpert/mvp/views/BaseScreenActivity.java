@@ -17,7 +17,7 @@ import java.util.Random;
 
 public abstract class BaseScreenActivity extends AppCompatActivity {
 
-    private String TAG = this.getClass().getName();
+    protected String TAG = this.getClass().getName();
     ArrayList<BaseScreenData> screens = new ArrayList<>();
 
     public BaseScreenActivity() {
@@ -68,6 +68,8 @@ public abstract class BaseScreenActivity extends AppCompatActivity {
     }
 
     protected void nextScreen() {
-        displayScreen(screens.get(new Random().nextInt(3)));
+        int nextScreen = new Random().nextInt(4);
+        Log.d(TAG, String.valueOf(nextScreen));
+        displayScreen(screens.get(nextScreen));
     }
 }

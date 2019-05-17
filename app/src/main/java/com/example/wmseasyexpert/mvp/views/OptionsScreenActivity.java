@@ -18,7 +18,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class OptionsScreenActivity extends BaseScreenActivity {
-    private static String TAG = OptionsScreenActivity.class.getName();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.options_list)
