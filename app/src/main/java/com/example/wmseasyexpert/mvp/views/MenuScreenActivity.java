@@ -8,7 +8,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wmseasyexpert.R;
 import com.example.wmseasyexpert.menu.MenuItem;
@@ -22,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MenuScreenActivity extends AppCompatActivity {
+public class MenuScreenActivity extends BaseScreenActivity {
     private static String TAG = MenuScreenActivity.class.getName();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -42,7 +41,7 @@ public class MenuScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_screen);
         ButterKnife.bind(this);
-        screenData = getScreenData();
+        screenData = getExtraData();
         initToolbar();
         initFooter();
         initView();
@@ -85,15 +84,6 @@ public class MenuScreenActivity extends AppCompatActivity {
         alertDialog.setMessage(helpMessage);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 (dialog, which) -> dialog.dismiss());
-        confirmButton.setOnClickListener(v -> Toast.makeText(this, nextScreenId, Toast.LENGTH_SHORT).show());
-    }
-
-    private BaseScreenData getScreenData() {
-        Bundle extras = getIntent().getExtras();
-        if (extras == null) {
-            Toast.makeText(this, "Screen data could not be processed.", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return (BaseScreenData) extras.getSerializable(BaseScreenData.class.getSimpleName());
+        confirmButton.setOnClickListener(v -> nextScreen());
     }
 }

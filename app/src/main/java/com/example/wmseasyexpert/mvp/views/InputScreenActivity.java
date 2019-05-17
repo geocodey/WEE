@@ -23,7 +23,7 @@ import com.example.wmseasyexpert.utils.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class InputScreenActivity extends AppCompatActivity {
+public class InputScreenActivity extends BaseScreenActivity {
     private static String TAG = InputScreenActivity.class.getName();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -43,7 +43,7 @@ public class InputScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_screen);
         ButterKnife.bind(this);
-        screenData = getScreenData();
+        screenData = getExtraData();
         initToolbar();
         initFooter();
         initView();
@@ -96,18 +96,9 @@ public class InputScreenActivity extends AppCompatActivity {
         alertDialog.setMessage(helpMessage);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 (dialog, which) -> dialog.dismiss());
-        confirmButton.setOnClickListener(v -> Toast.makeText(this, inputString, Toast.LENGTH_SHORT).show());
+        confirmButton.setOnClickListener(v -> nextScreen());
     }
-
-    private BaseScreenData getScreenData() {
-        Bundle extras = getIntent().getExtras();
-        if (extras == null) {
-            Toast.makeText(this, "Screen data could not be processed.", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return (BaseScreenData) extras.getSerializable(BaseScreenData.class.getSimpleName());
-    }
-
+    
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {

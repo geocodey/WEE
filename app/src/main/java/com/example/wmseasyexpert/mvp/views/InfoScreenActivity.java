@@ -16,7 +16,7 @@ import com.example.wmseasyexpert.utils.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class InfoScreenActivity extends AppCompatActivity {
+public class InfoScreenActivity extends BaseScreenActivity {
     private static String TAG = InfoScreenActivity.class.getName();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -36,7 +36,7 @@ public class InfoScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_screen);
         ButterKnife.bind(this);
-        screenData = getScreenData();
+        screenData = getExtraData();
         initToolbar();
         initFooter();
         initView();
@@ -74,16 +74,7 @@ public class InfoScreenActivity extends AppCompatActivity {
         alertDialog.setMessage(helpMessage);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 (dialog, which) -> dialog.dismiss());
-        confirmButton.setOnClickListener(v -> Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show());
-    }
-
-    private BaseScreenData getScreenData() {
-        Bundle extras = getIntent().getExtras();
-        if (extras == null) {
-            Toast.makeText(this, "Screen data could not be processed.", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return (BaseScreenData) extras.getSerializable(BaseScreenData.class.getSimpleName());
+        confirmButton.setOnClickListener(v -> nextScreen());
     }
 
 }
